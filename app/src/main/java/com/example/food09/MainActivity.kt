@@ -6,6 +6,10 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,9 +22,13 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(homeFragment);
 
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener {
             when(it.itemId){
-                R.id.home -> replaceFragment(homeFragment)
+                R.id.home -> {
+                    replaceFragment(homeFragment)
+                }
                 R.id.chatList -> replaceFragment(chatListFragment)
                 R.id.myPage -> replaceFragment(myPageFragment)
             }
