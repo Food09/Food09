@@ -14,6 +14,8 @@ import com.example.food09.databinding.FragmentHomeBinding
 class HomeFragment : Fragment() {
 
     lateinit var recyclerView : RecyclerView
+    var articleDataList = ArrayList<ArticleModel>()
+    val myAdapter = ArticleAdapter(articleDataList)
 
     fun testDummy(){
         var testDataList : ArrayList<TestModel> = arrayListOf<TestModel>(
@@ -31,6 +33,23 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = TestAdapter(testDataList)
     }
 
+    fun articleDummy(){
+        articleDataList = arrayListOf<ArticleModel>(
+            ArticleModel("charli1", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli2", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli3", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli4", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli5", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli6", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli7", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli8", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli9", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli10", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli11", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            )
+        Log.d("HomeFragment", "Test Data List are made!")
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +65,10 @@ class HomeFragment : Fragment() {
 //        binding.recyclerView.adapter = testAdapter
 //        testAdapter.notifyDataSetChanged()
 
-        testDummy()
+        //testDummy()
+        articleDummy()
+        myAdapter.replaceList(articleDataList)
+        recyclerView.adapter = myAdapter
 
         return rootView
 //        return inflater.inflate(R.layout.fragment_home, container, false)
@@ -71,5 +93,6 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
 
 }

@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class TestAdapter(val testDataList: ArrayList<TestModel>): RecyclerView.Adapter<TestAdapter.ViewHolder> () {
+class TestAdapter(private val testDataList: ArrayList<TestModel>): RecyclerView.Adapter<TestAdapter.ViewHolder> () {
 
     inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!){ // null이 아님
 
-        var data1: TextView = itemView!!.findViewById(R.id.titleTextView)
-        var data2: TextView = itemView!!.findViewById(R.id.contentTextView)
+        var data1: TextView = itemView!!.findViewById(R.id.test_titleTextView)
+        var data2: TextView = itemView!!.findViewById(R.id.test_contentTextView)
 
         fun bind(data: TestModel, position: Int){
             Log.d("TestAdapter", "===== ===== ===== ===== bind ===== ===== ===== =====")
@@ -23,7 +23,7 @@ class TestAdapter(val testDataList: ArrayList<TestModel>): RecyclerView.Adapter<
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TestAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_test, parent, false)
         return ViewHolder(view)
     }
 
