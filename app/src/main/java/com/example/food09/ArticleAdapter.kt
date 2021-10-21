@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ArticleAdapter(private val DataList: ArrayList<ArticleModel>): RecyclerView.Adapter<ArticleAdapter.ViewHolder> () {
+class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClick: (ArticleModel) -> Unit): RecyclerView.Adapter<ArticleAdapter.ViewHolder> () {
 
     var articleDataList = ArrayList<ArticleModel>()
 
-    inner class ViewHolder(itemView: View?): RecyclerView.ViewHolder(itemView!!){
+    inner class ViewHolder(itemView: View?, itemClick: (ArticleModel) -> Unit): RecyclerView.ViewHolder(itemView!!){
 
         private val txtTitle: TextView = itemView!!.findViewById(R.id.titleTextView)
         private val txtContent: TextView = itemView!!.findViewById(R.id.contentTextView)
@@ -28,12 +28,16 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>): RecyclerVie
             val numStr = curNum.toString() + " / " + maxNum.toString()
             txtNum.text = numStr
 
+            itemView.setOnClickListener {
+                itemClick(data)
+            }
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleAdapter.ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_article, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, itemClick)
     }
 
     override fun getItemCount(): Int {

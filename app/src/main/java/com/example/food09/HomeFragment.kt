@@ -15,7 +15,7 @@ class HomeFragment : Fragment() {
 
     lateinit var recyclerView : RecyclerView
     var articleDataList = ArrayList<ArticleModel>()
-    val myAdapter = ArticleAdapter(articleDataList)
+    lateinit var myAdapter : ArticleAdapter
 
     fun testDummy(){
         var testDataList : ArrayList<TestModel> = arrayListOf<TestModel>(
@@ -35,14 +35,14 @@ class HomeFragment : Fragment() {
 
     fun articleDummy(){
         articleDataList = arrayListOf<ArticleModel>(
-            ArticleModel("charli1", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli2", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli3", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli4", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli5", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli6", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli1", "FastFood", "12345678901234567", "123456789012345678901234567890123456789012345678901234567890", 5, 3),
+            ArticleModel("charli2", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 2),
+            ArticleModel("charli3", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 4, 1),
+            ArticleModel("charli4", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 6, 1),
+            ArticleModel("charli5", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 3),
+            ArticleModel("charli6", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 6, 1),
             ArticleModel("charli7", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
-            ArticleModel("charli8", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
+            ArticleModel("charli8", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 7, 4),
             ArticleModel("charli9", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
             ArticleModel("charli10", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
             ArticleModel("charli11", "FastFood", "밥 먹을사람 구함!", "같이 햄버거 먹을 사람 구해요", 5, 1),
@@ -56,17 +56,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-
+        Log.d("log", "onCreateView! - home")
         var rootView = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView = rootView.findViewById(R.id.recyclerView!!) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-//        binding.recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-//        binding.recyclerView.adapter = testAdapter
-//        testAdapter.notifyDataSetChanged()
+        recyclerView.addItemDecoration(ArticleItemDecorator(10))
 
         //testDummy()
         articleDummy()
+        // recycleView itemCLickListener
+        myAdapter = ArticleAdapter(articleDataList) { article ->
+            Log.d("ItemClickListener", "data :" + article.get_userID())
+        }
         myAdapter.replaceList(articleDataList)
         recyclerView.adapter = myAdapter
 
@@ -92,6 +93,9 @@ class HomeFragment : Fragment() {
                 Log.d("log", "Floating Button pushed!")
             }
         }
+
+
+
     }
 
 
