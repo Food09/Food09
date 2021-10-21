@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.food09.databinding.FragmentHomeBinding
@@ -50,6 +51,10 @@ class HomeFragment : Fragment() {
         Log.d("HomeFragment", "Test Data List are made!")
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Log.d("onCreate", "onCreat called!")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,6 +72,12 @@ class HomeFragment : Fragment() {
         // recycleView itemCLickListener
         myAdapter = ArticleAdapter(articleDataList) { article ->
             Log.d("ItemClickListener", "data :" + article.get_userID())
+            // HomeFragment에서 ArticleFragment로 이동
+            val bundle: Bundle = Bundle()
+            bundle.putString("test", "test")
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+
+
         }
         myAdapter.replaceList(articleDataList)
         recyclerView.adapter = myAdapter
@@ -93,7 +104,6 @@ class HomeFragment : Fragment() {
                 Log.d("log", "Floating Button pushed!")
             }
         }
-
 
 
     }
