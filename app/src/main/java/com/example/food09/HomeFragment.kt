@@ -60,10 +60,7 @@ class HomeFragment : Fragment() {
         var rootView = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView = rootView.findViewById(R.id.recyclerView!!) as RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-//        binding.recyclerView.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
-//        binding.recyclerView.adapter = testAdapter
-//        testAdapter.notifyDataSetChanged()
+        recyclerView.addItemDecoration(ArticleItemDecorator(10))
 
         //testDummy()
         articleDummy()
