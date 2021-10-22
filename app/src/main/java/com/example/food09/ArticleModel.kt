@@ -1,15 +1,25 @@
 package com.example.food09
 
+import java.io.Serializable
+
 class ArticleModel (
+    var ArticleNum: Int,
     val userID: String,
+    val userProfile: String,
     var category: String,
     var title: String,
-    var text: String,
+    var content: String,
     var maxNum: Int,
     var curNum: Int
-    ){
+    ) : Serializable{
+    fun get_articleNum(): Int? {
+        return ArticleNum
+    }
     fun get_userID(): String? {
         return userID
+    }
+    fun get_userProfile(): String? {
+        return userProfile
     }
     fun get_title(): String? {
         return title
@@ -17,8 +27,8 @@ class ArticleModel (
     fun get_category(): String? {
         return category
     }
-    fun get_text(): String? {
-        return text
+    fun get_content(): String? {
+        return content
     }
     fun get_maxNum(): Int?{
         return maxNum
