@@ -91,7 +91,8 @@ class HomeFragment : Fragment() {
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             val articleFragment = ArticleFragment()
             articleFragment.setArguments(bundle)
-            transaction.replace(R.id.fragementContainer, articleFragment).commit()
+//            transaction.replace(R.id.fragementContainer, articleFragment).commit()
+            transaction.add(R.id.fragementContainer, articleFragment).addToBackStack(null).commit() // add 하면 겹쳐져서 안됨.
 
 
         }

@@ -1,5 +1,6 @@
 package com.example.food09
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,10 +9,27 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 
 class ArticleFragment : Fragment() {
 
-
+//    private lateinit var callback: OnBackPressedCallback
+//
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        callback = object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                Log.d("ArticleFragment", "BackPressedCallback Called!")
+//
+//            }
+//        }
+//        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+//    }
+//
+//    override fun onDetach() {
+//        super.onDetach()
+//        callback.remove()
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
