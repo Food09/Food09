@@ -66,6 +66,11 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("onCreate", "onCreat called!")
+        requireFragmentManager().setFragmentResultListener("requestKey", this) { key, bundle ->
+            val result = bundle.getString("data")
+            Log.d("HomeFragment", "Receive data from EditArticleFragment" + result)
+            // ToDo: EditArticle로부터 받아온 article을 리스트에 추가하기
+        }
     }
 
     override fun onCreateView(
