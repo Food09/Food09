@@ -18,6 +18,7 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView : RecyclerView
     var articleDataList = ArrayList<ArticleModel>()
     lateinit var myAdapter : ArticleAdapter
+    var flag : Int = 0
 //    var activity : MainActivity? = null  // 사용안함
 
     fun testDummy(){
@@ -71,6 +72,8 @@ class HomeFragment : Fragment() {
             val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
             Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
             // ToDo: EditArticle로부터 받아온 article을 리스트에 추가하기
+            articleDataList.add(article)
+            myAdapter.replaceList(articleDataList)
         }
     }
 
@@ -85,8 +88,12 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.addItemDecoration(ArticleItemDecorator(10))
 
-        //testDummy()
-        articleDummy()
+        if (flag == 0){
+            //testDummy()
+            articleDummy()
+            flag = 1
+        }
+
         // recycleView itemCLickListener
         myAdapter = ArticleAdapter(articleDataList) { article ->
             Log.d("ItemClickListener", "data :" + article.get_userID())
