@@ -92,7 +92,7 @@ class HomeFragment : Fragment() {
             val articleFragment = ArticleFragment()
             articleFragment.setArguments(bundle)
 //            transaction.replace(R.id.fragementContainer, articleFragment).commit()
-            transaction.add(R.id.fragementContainer, articleFragment).addToBackStack(null).commit() // add 하면 겹쳐져서 안됨.
+            transaction.add(R.id.fragementContainer, articleFragment).addToBackStack(null).commit()
 
 
         }
@@ -119,6 +119,9 @@ class HomeFragment : Fragment() {
         binding.addFloatingButton.setOnClickListener {
             context.let {
                 Log.d("log", "Floating Button pushed!")
+                val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+                val editArticleFragment = EditArticleFragment()
+                transaction.add(R.id.fragementContainer, editArticleFragment).addToBackStack(null).commit()
             }
         }
 
