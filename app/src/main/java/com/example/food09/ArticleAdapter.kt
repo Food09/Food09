@@ -21,7 +21,7 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
 
         fun bind(data: ArticleModel, position: Int){
             txtTitle.text = data.get_title()
-            txtContent.text = data.get_text()
+            txtContent.text = data.get_content()
 
             val curNum = data.get_curNum()
             val maxNum = data.get_maxNum()
