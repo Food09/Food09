@@ -1,5 +1,6 @@
 package com.example.food09
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView : RecyclerView
     var articleDataList = ArrayList<ArticleModel>()
     lateinit var myAdapter : ArticleAdapter
+    var activity : MainActivity? = null
 
     fun testDummy(){
         var testDataList : ArrayList<TestModel> = arrayListOf<TestModel>(
@@ -32,6 +34,16 @@ class HomeFragment : Fragment() {
         )
         Log.d("HomeFragment", "Test Data List are made!")
         recyclerView.adapter = TestAdapter(testDataList)
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity = getActivity() as MainActivity
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity = null
     }
 
     fun articleDummy(){
@@ -76,7 +88,10 @@ class HomeFragment : Fragment() {
             val bundle: Bundle = Bundle()
             bundle.putString("test", "test")
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            val articleFragment = ArticleFragment()
+            transaction.replace(R.id.fragementContainer, articleFragment).commit()
 
+            // ToDo: Child Fragment로 ArticleFragment를 생성하고 데이터를 전달해야함
 
         }
         myAdapter.replaceList(articleDataList)
