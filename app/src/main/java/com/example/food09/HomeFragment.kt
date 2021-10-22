@@ -67,8 +67,9 @@ class HomeFragment : Fragment() {
         super.onCreate(savedInstanceState)
         Log.d("onCreate", "onCreat called!")
         requireFragmentManager().setFragmentResultListener("requestKey", this) { key, bundle ->
-            val result = bundle.getString("data")
-            Log.d("HomeFragment", "Receive data from EditArticleFragment" + result)
+//            val result = bundle.getString("data")
+            val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
+            Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
             // ToDo: EditArticle로부터 받아온 article을 리스트에 추가하기
         }
     }
@@ -126,6 +127,7 @@ class HomeFragment : Fragment() {
                 Log.d("log", "Floating Button pushed!")
                 val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 val editArticleFragment = EditArticleFragment()
+                // ToDo: user 정보 bundle 추가해야함
                 transaction.add(R.id.fragementContainer, editArticleFragment).addToBackStack(null).commit()
             }
         }
