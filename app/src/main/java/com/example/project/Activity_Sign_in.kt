@@ -83,7 +83,7 @@ class Activity_Sign_in : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null){
             // [+] go to main Activity
-            val main_Intent = Intent(this, Activity_main::class.java)
+            val main_Intent = Intent(this, MainActivity::class.java)
             startActivity(main_Intent)
         }
     }
