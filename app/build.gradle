@@ -71,7 +71,7 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.3.0'
     debugImplementation 'androidx.fragment:fragment-testing:1.3.0'
 
-
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
     kapt 'com.android.databinding:compiler:1.0-rc4'
 
 

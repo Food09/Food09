@@ -29,7 +29,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="100dp"
             android:paddingTop="10dp"
-            android:text="환영합니다!"
+            android:text="자신에 대해 알려주세요!"
             android:textSize="23dp"
             android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:text="로그인에 사용될 이메일과 비밀번호를 입력해주세요." />
+            android:text="다른 사람에게 자신을 소개해보세요." />
 
 
         <TextView
@@ -46,48 +46,12 @@
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="아이디"
+            android:text="별명"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"/>
 
         <EditText
-            android:id="@+id/sign_up_userID"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:background="@drawable/edit_textbox_border"
-            android:hint="이메일을 입력해주세요"
-            android:textSize="17dp"
-            android:textColor="#9E9E9E"
-            android:layout_marginBottom="7dp"
-            android:padding="5dp"
-
-            android:textColorHint="#A5A5A5"/>
-
-        <TextView
-            android:textSize="10dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="-5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="※ 비밀번호 분실 시 사용되므로 정확히 입력해주세요."
-            />
-
-        <TextView
-            android:layout_marginTop="40dp"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="비밀번호"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"/>
-
-        <EditText
-            android:inputType="textPassword"
-            android:id="@+id/sign_up_userPW"
+            android:id="@+id/sign_up_displayName"
             android:layout_width="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -95,7 +59,7 @@
             android:layout_gravity="center"
             android:textSize="17dp"
             android:background="@drawable/edit_textbox_border"
-            android:hint="비밀번호를 입력해주세요"
+            android:hint="별명을 입력해주세요"
             android:textColor="#9E9E9E"
             android:layout_marginBottom="8dp"
             android:padding="5dp"
@@ -107,22 +71,21 @@
             android:layout_marginTop="-5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="※ 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요."
+            android:text="※ 별명은 설정 후 변경이 불가능합니다."
             />
 
         <TextView
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:textSize="15dp"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="비밀번호 재확인"
+            android:text="별명 재확인"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="20dp"/>
 
         <EditText
-            android:inputType="textPassword"
-            android:id="@+id/sign_up_userPW_check"
+            android:id="@+id/sign_up_displayName_check"
             android:layout_width="match_parent"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -130,7 +93,34 @@
             android:layout_gravity="center"
             android:textSize="17dp"
             android:background="@drawable/edit_textbox_border"
-            android:hint="비밀번호를 입력해주세요"
+            android:hint="별명을 입력해주세요"
+            android:textColor="#9E9E9E"
+            android:layout_marginBottom="8dp"
+            android:padding="5dp"
+            android:textColorHint="#A5A5A5"/>
+
+
+        <TextView
+            android:layout_marginTop="40dp"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="자기소개"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"/>
+
+        <EditText
+            android:gravity="left"
+            android:id="@+id/my_info"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:textSize="17dp"
+            android:background="@drawable/edit_textbox_border"
+            android:hint="자신을 소개해보세요"
             android:textColor="#9E9E9E"
             android:layout_marginBottom="8dp"
             android:padding="5dp"
@@ -138,14 +128,14 @@
 
 
         <Button
-            android:id="@+id/register_btn"
+            android:id="@+id/complete_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#FFC107"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:text="다음" />
+            android:text="회원 가입"/>
 
     </LinearLayout>
 
