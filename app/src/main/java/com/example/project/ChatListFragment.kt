@@ -12,13 +12,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_article.*
+import kotlinx.android.synthetic.main.fragment_chat_list.*
+import org.w3c.dom.Text
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ChatListFragment : Fragment() {
 
     private var rootChatRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chat")
     private lateinit var chatRef : DatabaseReference
-    private val chatList = arrayListOf<ChatModel>()
+    private var chatList = arrayListOf<ChatModel>()
     private lateinit var chatAdapter : ChatAdapter
     private lateinit var currentNickName: String
 
@@ -43,9 +47,9 @@ class ChatListFragment : Fragment() {
         // Todo: 닉네임 초기화 수정
         currentNickName = "charlie"
 
-        chatList.clear()
 
-        var notify = rootView.findViewById(R.id.notifyTextView_chat!!) as TextView
+        val notify = rootView.findViewById(R.id.notifyTextView_chat!!) as TextView
+        val chatContent = rootView.findViewById(R.id.et_chatting) as TextView
 
         // Todo: 현재 유저가 있는 채팅방 찾기 -> chatRef 초기화
         if ( findChat() == false ){
@@ -66,19 +70,37 @@ class ChatListFragment : Fragment() {
 
         // 메시지 발송 버튼
         var btnSend = rootView.findViewById(R.id.btn_send!!) as Button
+        btnSend.isEnabled = true
 
         btnSend.setOnClickListener {
             Log.d("ChatListFragment", "btn clicked!")
 
             // ToDo: add chat data to firebase
-            // readChat()
+            val chatKey : String? = chatRef.push().key
+            val now = System.currentTimeMillis()
+            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
+
+            if (chatKey != null && (dateTime) != null) {
+                val chat : ChatModel = ChatModel(chatKey, currentNickName, chatContent.text.toString(), dateTime)
+                val chatValues = chat.toMap()
+                Log.d("ChatListFragment", chatValues.toString())
+                val childUpdates = hashMapOf<String, Any>(
+                    "/${chatKey}" to chatValues
+                )
+                chatRef.updateChildren(childUpdates)
+
+            }
+            readChat()
         }
 
         return rootView
     }
 
     fun readChat(){
+//        chatList.clear()
+//        chatAdapter.notifyDataSetChanged()
         chatRef.addValueEventListener(object: ValueEventListener {
+            var tmpChatList = ArrayList<ChatModel>()
             override fun onDataChange(snapshot: DataSnapshot) {
                 for ( chat in snapshot.children) {
                     Log.d("ChatListFragment", chat.key.toString())
@@ -86,9 +108,11 @@ class ChatListFragment : Fragment() {
                     val nickName : String = chat.child("nickName").value.toString()
                     val content : String = chat.child("content").value.toString()
                     val dataTime : String = chat.child("dateTime").value.toString()
-                    chatList.add(ChatModel(chatKey, nickName, content, dataTime))
+                    tmpChatList.add(ChatModel(chatKey, nickName, content, dataTime))
                 }
-                chatAdapter.notifyDataSetChanged()
+                chatList = tmpChatList
+                chatAdapter.replaceList(chatList)
+//                chatAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {

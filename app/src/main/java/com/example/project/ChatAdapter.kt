@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ChatAdapter(private val currentUserID: String, private val DataList: ArrayList<ChatModel>) : RecyclerView.Adapter<ChatAdapter.ViewHolder> () {
 
+    var chatList = ArrayList<ChatModel>()
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
@@ -22,7 +23,7 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
         fun bind(data: ChatModel, position: Int){
 
             if (currentUserID == DataList[position].nickName) {
-                card.setCardBackgroundColor(Color.parseColor("#FFF176"))
+                card.setCardBackgroundColor(Color.parseColor("#FFC107"))
             }
 
             nickName.text = DataList[position].nickName
@@ -45,8 +46,9 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
         holder.bind(DataList[position], position)
     }
 
-//    fun replaceList(newList: ArrayList<ChatModel>){
-//
-//    }
+    fun replaceList(newList: ArrayList<ChatModel>){
+        chatList = newList
+        notifyDataSetChanged()
+    }
 
 }
