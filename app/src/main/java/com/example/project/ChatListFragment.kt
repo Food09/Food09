@@ -91,6 +91,7 @@ class ChatListFragment : Fragment() {
 
             }
             readChat()
+            recyclerView.smoothScrollToPosition(chatList.size)
         }
 
         return rootView
@@ -99,7 +100,9 @@ class ChatListFragment : Fragment() {
     fun readChat(){
 //        chatList.clear()
 //        chatAdapter.notifyDataSetChanged()
-        chatRef.addValueEventListener(object: ValueEventListener {
+        val chatQuery = chatRef.orderByChild("dateTime")
+
+        chatQuery.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 //                var tmpChatList = ArrayList<ChatModel>()
                 chatList.clear()
@@ -112,6 +115,7 @@ class ChatListFragment : Fragment() {
 //                    tmpChatList.add(ChatModel(chatKey, nickName, content, dataTime))
                     chatList.add(ChatModel(chatKey, nickName, content, dataTime))
                 }
+//                chatList.reverse()
 //                chatList = tmpChatList
 //                chatAdapter.replaceList(chatList)
                 chatAdapter.notifyDataSetChanged()
