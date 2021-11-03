@@ -76,7 +76,8 @@ class HomeFragment : Fragment() {
 //            val result = bundle.getString("data")
             val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
             Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
-            // EditArticle로부터 받아온 article을 리스트에 추가하기
+
+            // EditArticle로부터 받아온 article을 Firebase에 추가하기
             val uploadRef : DatabaseReference = articleRef.push()
             val key : String? = uploadRef.key
             if (key == null) {
