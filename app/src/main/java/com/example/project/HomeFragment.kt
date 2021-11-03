@@ -19,8 +19,10 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView : RecyclerView
     var articleDataList = ArrayList<ArticleModel>()
     lateinit var myAdapter : ArticleAdapter
+    lateinit var articleRef : DatabaseReference
     var flag : Int = 0
 //    var activity : MainActivity? = null  // 사용안함
+
 
     fun testDummy(){
         var testDataList : ArrayList<TestModel> = arrayListOf<TestModel>(
@@ -75,9 +77,15 @@ class HomeFragment : Fragment() {
             val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
             Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
             // EditArticle로부터 받아온 article을 리스트에 추가하기
+            // ToDo: local에 쓰는 것 없이 firebase에 추가
             articleDataList.add(article)
             myAdapter.replaceList(articleDataList)
         }
+    }
+
+    fun dbInit(){
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        articleRef = database.getReference("Article")
     }
 
     override fun onCreateView(
@@ -92,10 +100,13 @@ class HomeFragment : Fragment() {
         recyclerView.addItemDecoration(ArticleItemDecorator(10))
 
         if (flag == 0){
+            dbInit()
             //testDummy()
-            articleDummy()
+            //articleDummy()
             flag = 1
         }
+
+        readArticle()
 
         // recycleView itemCLickListener
         myAdapter = ArticleAdapter(articleDataList) { article ->
@@ -109,24 +120,52 @@ class HomeFragment : Fragment() {
             articleFragment.setArguments(bundle)
 //            transaction.replace(R.id.fragementContainer, articleFragment).commit()
             transaction.add(R.id.fragementContainer, articleFragment).addToBackStack(null).commit()
-
-
         }
         myAdapter.replaceList(articleDataList)
         recyclerView.adapter = myAdapter
 
-        test()
+//        test()
 
         return rootView
 //        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    fun readArticle(){
+        articleRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var tmpArticleDataList = ArrayList<ArticleModel>()
+                for ( article in snapshot.children ){
+                    Log.d("Firebase Test", article.key.toString())
+                    val articleNum : Int = article.key.toString().toInt()
+                    val title : String = article.child("title").value.toString()
+                    val content : String = article.child("content").value.toString()
+                    val userID : String = article.child("userID").value.toString()
+                    val userProfile : String = article.child("userProfile").value.toString()
+                    val category : String = article.child("category").value.toString()
+                    val curNum : Int = article.child("curNum").value.toString().toInt()
+                    val maxNum : Int = article.child("maxNum").value.toString().toInt()
+
+                    tmpArticleDataList.add(ArticleModel(articleNum, userID, userProfile, category, title, content, maxNum, curNum))
+                }
+                articleDataList = tmpArticleDataList
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Firebase Test", "Failed to read Database")
+            }
+        })
+    }
+
     fun test(){
+        // example of Read/Write Data to firebase
 
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
         val myRef : DatabaseReference = database.getReference("Article")
+
+        // Modify Data
         myRef.child("2").child("title").setValue("zzzzzzzz")
 
+        // Read Data
         myRef.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 Log.d("Firebase Test", snapshot.value.toString())
@@ -136,9 +175,23 @@ class HomeFragment : Fragment() {
                 Log.d("Firebase Test", "Failed to read Database")
             }
         })
-
         Log.d("Firebase Test", myRef.get().toString())
 
+        // Add Data
+        val key = myRef.push().push().key
+        if (key == null) {
+            Log.w("Firebase Test ", "Couldn't get push key for posts")
+            return
+        }
+
+        Log.d("Firebase Test Key : ", key.toString())
+        val article : ArticleModel = ArticleModel(7,"charli7", "저는 미래관에 사는 야채곱창을 좋아하는 화석입니다.","FastFood", "밥 먹을사람 구함!1111111111111", "같이 햄버거 먹을 사람 구해요", 5, 1)
+        val articleValues = article.toMap()
+
+        val childUpdates = hashMapOf<String, Any>(
+            "/${article.get_articleNum()}" to articleValues
+        )
+        myRef.updateChildren(childUpdates)
 
     }
 

@@ -1,9 +1,10 @@
 package com.example.project
 
+import com.google.firebase.database.Exclude
 import java.io.Serializable
 
 class ArticleModel (
-    var ArticleNum: Int,
+    var articleNum: Int,
     val userID: String,
     val userProfile: String,
     var category: String,
@@ -13,7 +14,7 @@ class ArticleModel (
     var curNum: Int
     ) : Serializable{
     fun get_articleNum(): Int? {
-        return ArticleNum
+        return articleNum
     }
     fun get_userID(): String? {
         return userID
@@ -47,6 +48,19 @@ class ArticleModel (
     }
     fun set_content(content: String){
         this.content = content
+    }
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+//            "articleNum" to articleNum, // articleNum is the key of article
+            "userID" to userID,
+            "userProfile" to userProfile,
+            "category" to category,
+            "title" to title,
+            "content" to content,
+            "maxNum" to maxNum,
+            "curNum" to curNum
+        )
     }
 }
 
