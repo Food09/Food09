@@ -1,19 +1,24 @@
 package com.example.project
 
+import com.google.firebase.database.Exclude
 import java.io.Serializable
+import java.util.function.Predicate
+
 
 class ArticleModel (
-    var ArticleNum: Int,
+    var articleKey: String,
     val userID: String,
     val userProfile: String,
     var category: String,
     var title: String,
     var content: String,
     var maxNum: Int,
-    var curNum: Int
+    var curNum: Int,
+    var dateTime: String?,
+    var members: ArrayList<String>
     ) : Serializable{
-    fun get_articleNum(): Int? {
-        return ArticleNum
+    fun get_articleKey(): String? {
+        return articleKey
     }
     fun get_userID(): String? {
         return userID
@@ -36,6 +41,21 @@ class ArticleModel (
     fun get_curNum(): Int?{
         return curNum
     }
+    fun get_dateTime(): String?{
+        return dateTime
+    }
+    fun get_members(): ArrayList<String>?{
+        return members
+    }
+    fun add_members(userID: String) {
+        this.members.add(userID)
+    }
+    fun del_members(userID: String) {
+        members.remove(userID)
+    }
+    fun set_articleKey(articleKey: String){
+        this.articleKey = articleKey
+    }
     fun set_curNum(curNum: Int){
         this.curNum = curNum
     }
@@ -47,6 +67,21 @@ class ArticleModel (
     }
     fun set_content(content: String){
         this.content = content
+    }
+    @Exclude
+    fun toMap(): Map<String, Any?> {
+        return mapOf(
+            "articleKey" to articleKey, // articleKey is the key of article
+            "userID" to userID,
+            "userProfile" to userProfile,
+            "category" to category,
+            "title" to title,
+            "content" to content,
+            "maxNum" to maxNum,
+            "curNum" to curNum,
+            "dateTime" to dateTime,
+            "members" to members
+        )
     }
 }
 

@@ -2,7 +2,8 @@
   "project_info": {
     "project_number": "774388516758",
     "project_id": "food09-581c6",
-    "storage_bucket": "food09-581c6.appspot.com"
+    "storage_bucket": "food09-581c6.appspot.com",
+    "firebase_url": "https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/"
   },
   "client": [
     {

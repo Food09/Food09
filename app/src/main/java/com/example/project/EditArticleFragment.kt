@@ -1,5 +1,6 @@
 package com.example.project
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,11 +10,16 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-
-
+import androidx.annotation.RequiresApi
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class EditArticleFragment : Fragment() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,8 +40,13 @@ class EditArticleFragment : Fragment() {
             // ToDo: check field
 
             Log.d("EditArticleFragment", "Submit Clicked!")
-//            val result = "result"
-            var article : ArticleModel = ArticleModel(1, "charlie", "asdf", "fastfood", "title", "content", 5, 1)
+            val now = System.currentTimeMillis()
+            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
+
+//            val dateTime : String = LocalDateTime.now().toString()
+            Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
+            val members : ArrayList<String> = arrayListOf("charlie")
+            var article : ArticleModel = ArticleModel("1", "charlie", "asdf", "fastfood", "title", "content", 5, 1, dateTime, members)
             article.set_title(title.text.toString())
             article.set_content(content.text.toString())
             val bundle: Bundle = Bundle()
