@@ -1,80 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="20dp"
+    android:paddingHorizontal="10dp"
     android:paddingVertical="10dp"
+    android:layout_marginBottom="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#C88787"
-    >
+    android:background="@color/colorWhite"
+    android:orientation="horizontal">
 
 
     <ImageView
         android:id="@+id/thumbnailImageView"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_marginBottom="16dp"
-        android:background="#F8F6F6"
+        android:layout_width="90dp"
+        android:layout_height="75dp"
+        android:background="@drawable/round_border"
         android:scaleType="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_baseline_fastfood_24" />
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="219dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:maxLength="15"
-        android:singleLine="true"
-        android:text="제목"
-        android:textColor="@color/colorWhite"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/contentTextView"
-        android:layout_width="224dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
-        android:maxLength="44"
-        android:singleLine="false"
-        android:text="내용"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/numTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView"
-        app:layout_constraintVertical_bias="0.136"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/numTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="curNum / maxNum"
-        android:textColor="@color/colorWhite"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.983" />
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:maxLength="15"
+            android:singleLine="true"
+            android:text="제목"
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/contentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginRight="20dp"
+            android:maxLength="44"
+            android:singleLine="false"
+            android:text="카테고리"
+            android:textColor="#000000"
+            android:textSize="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/numTextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/thumbnailImageView"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:ignore="MissingConstraints" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:layout_marginTop="1dp"
+                app:srcCompat="@drawable/ic_person" />
+
+            <TextView
+                android:id="@+id/numTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="curNum / maxNum"
+                android:textColor="#000000"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.98"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.983" />
+        </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

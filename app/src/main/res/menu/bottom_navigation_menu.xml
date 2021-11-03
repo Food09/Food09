@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home"
-        android:title="home"
+        android:icon="@drawable/ic_people"
+        android:title="모두의 공구"
         />
     <item android:id="@+id/chatList"
-        android:title="chatting"
+        android:icon="@drawable/ic_chat_bubble"
+        android:title="내 공구"
         />
     <item android:id="@+id/myPage"
-        android:title="myinfo"
+        android:icon="@drawable/ic_person"
+        android:title="내 정보"
         />
 </menu>

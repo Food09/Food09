@@ -8,95 +8,128 @@
     android:background="@color/colorWhite"
     android:clickable="true">
 
-    <ImageView
-        android:id="@+id/UserProfileImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"
-        app:srcCompat="@drawable/ic_baseline_person_24"
-        />
-
-    <TextView
-        android:id="@+id/userIDTextView_article"
+    <RelativeLayout
+        android:id="@+id/top_relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="123dp"
-        android:text="Charlie"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        />
-
-    <TextView
-        android:id="@+id/userProfileTextView_article"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginStart="125dp"
-        android:layout_marginEnd="40dp"
-        android:text="저는 미래관에 사는 야채곱창을 좋아하는 화석입니다."
-        android:textSize="14dp"
-        />
-
-    <TextView
-        android:id="@+id/titleTextView_article"
-        android:layout_width="match_parent"
-        android:layout_height="34dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="120dp"
-        android:text="곱창 같이 드실 분 구해요!"
-        android:textSize="24dp"
-        android:textStyle="bold"
-        />
-
-    <TextView
-        android:id="@+id/contentTextView_article"
-        android:layout_width="match_parent"
-        android:layout_height="130dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="167dp"
-        android:maxLength="350"
-        android:textSize="17dp"
-        android:text="야곱야곱에서 야채곱창 시키려고 하는데, 탑승하실 분 있으면 들어와주세요~" />
-
-    <TextView
-        android:id="@+id/recruitTextView_article"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="300dp"
-        android:text="현재 모집 현황 : "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-
-    <TextView
-        android:id="@+id/userNumberTextView_article"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="300dp"
-        android:text="1 / 4 "
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
-
-    <Button
-        android:id="@+id/buttonEnter_article"
-        android:layout_width="370dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="350dp"
-        android:layout_marginEnd="20dp"
-        android:text="참여하기"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        />
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/UserProfileImageView"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#E6E6E6"
+            app:civ_border_width="2dp" />
+
+        <TextView
+            android:id="@+id/userIDTextView_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_toRightOf="@+id/UserProfileImageView"
+            android:text="Charlie"
+            android:textSize="20dp"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userProfileTextView_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userIDTextView_article"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="20dp"
+
+            android:layout_toRightOf="@+id/UserProfileImageView"
+            android:text="저는 미래관에 사는 야채곱창을 좋아하는 화석입니다."
+            android:textColor="#000000"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/titleTextView_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/UserProfileImageView"
+            android:layout_marginLeft="20dp"
+
+            android:text="곱창 같이 드실 분 구해요!"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/contentTextView_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView_article"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:maxLength="350"
+            android:textColor="#000000"
+            android:text="야곱야곱에서 야채곱창 시키려고 하는데, 탑승하실 분 있으면 들어와주세요~"
+            android:textSize="15dp" />
+
+
+        <ImageView
+            android:id="@+id/person_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contentTextView_article"
+            android:layout_alignLeft="@+id/contentTextView_article"
+            android:layout_marginTop="32dp"
+            android:layout_marginRight="5dp"
+
+            android:src="@drawable/ic_people" />
+
+        <TextView
+            android:id="@+id/userNumberTextView_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/contentTextView_article"
+            android:layout_toRightOf="@+id/person_imageView"
+            android:layout_marginTop="30dp"
+
+            android:textColor="#000000"
+            android:text="1 / 4"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+
+        <Button
+            android:id="@+id/buttonEnter_article"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contentTextView_article"
+            android:layout_alignRight="@+id/contentTextView_article"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/circle_border"
+            android:text="참여하기"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 </FrameLayout>

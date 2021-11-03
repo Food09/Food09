@@ -50,23 +50,11 @@ class Activity_Sign_up : AppCompatActivity() {
     private fun signUp(email: String, password: String, password_check: String) {
         if (email.isNotEmpty() and password.isNotEmpty() and password_check.isNotEmpty()) {
             if (password == password_check) {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success")
-                            val user = auth.currentUser
-                            updateUI(user)
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                            Toast.makeText(
-                                baseContext, "이메일 또는 비밀번호를 양식에 맞게 입력해주세요.",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            // updateUI(null)
-                        }
-                    }
+                val details_Intent = Intent(this, Activity_create_info::class.java)
+                details_Intent.putExtra("email", email)
+                details_Intent.putExtra("password", password)
+
+                startActivity(details_Intent)
             } else {
                 Toast.makeText(
                     baseContext, "비밀번호를 다시 확인해주세요.",
@@ -88,14 +76,6 @@ class Activity_Sign_up : AppCompatActivity() {
 
     }
 
-    private fun updateUI(user: FirebaseUser?) {
-        if (user != null){
-            // [+] go to register
-            val register_Intent = Intent(this, Register_Success::class.java)
-            startActivity(register_Intent)
-        }
-
-    }
 
     companion object {
         private const val TAG = "EmailPassword"
