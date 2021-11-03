@@ -46,9 +46,9 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
         holder.bind(DataList[position], position)
     }
 
-    fun replaceList(newList: ArrayList<ChatModel>){
-        chatList = newList
-        notifyDataSetChanged()
-    }
+//    fun replaceList(newList: ArrayList<ChatModel>){
+//        chatList = newList
+//        notifyDataSetChanged()
+//    }
 
 }

@@ -75,7 +75,7 @@ class ChatListFragment : Fragment() {
         btnSend.setOnClickListener {
             Log.d("ChatListFragment", "btn clicked!")
 
-            // ToDo: add chat data to firebase
+            // add chat data to firebase
             val chatKey : String? = chatRef.push().key
             val now = System.currentTimeMillis()
             val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
@@ -100,19 +100,21 @@ class ChatListFragment : Fragment() {
 //        chatList.clear()
 //        chatAdapter.notifyDataSetChanged()
         chatRef.addValueEventListener(object: ValueEventListener {
-            var tmpChatList = ArrayList<ChatModel>()
             override fun onDataChange(snapshot: DataSnapshot) {
+//                var tmpChatList = ArrayList<ChatModel>()
+                chatList.clear()
                 for ( chat in snapshot.children) {
                     Log.d("ChatListFragment", chat.key.toString())
                     val chatKey : String = chat.key.toString()
                     val nickName : String = chat.child("nickName").value.toString()
                     val content : String = chat.child("content").value.toString()
                     val dataTime : String = chat.child("dateTime").value.toString()
-                    tmpChatList.add(ChatModel(chatKey, nickName, content, dataTime))
+//                    tmpChatList.add(ChatModel(chatKey, nickName, content, dataTime))
+                    chatList.add(ChatModel(chatKey, nickName, content, dataTime))
                 }
-                chatList = tmpChatList
-                chatAdapter.replaceList(chatList)
-//                chatAdapter.notifyDataSetChanged()
+//                chatList = tmpChatList
+//                chatAdapter.replaceList(chatList)
+                chatAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
