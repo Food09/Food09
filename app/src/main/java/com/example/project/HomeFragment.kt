@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.FragmentHomeBinding
+import com.google.android.gms.common.config.GservicesValue.value
+import com.google.firebase.database.*
 
 
 class HomeFragment : Fragment() {
@@ -66,11 +68,13 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("onCreate", "onCreat called!")
+
+        // EditArticle로부터 article을 받아오기
         requireFragmentManager().setFragmentResultListener("requestKey", this) { key, bundle ->
 //            val result = bundle.getString("data")
             val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
             Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
-            // ToDo: EditArticle로부터 받아온 article을 리스트에 추가하기
+            // EditArticle로부터 받아온 article을 리스트에 추가하기
             articleDataList.add(article)
             myAdapter.replaceList(articleDataList)
         }
@@ -111,10 +115,32 @@ class HomeFragment : Fragment() {
         myAdapter.replaceList(articleDataList)
         recyclerView.adapter = myAdapter
 
+        test()
+
         return rootView
 //        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+    fun test(){
+
+        val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
+        val myRef : DatabaseReference = database.getReference("Article")
+        myRef.child("2").child("title").setValue("zzzzzzzz")
+
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("Firebase Test", snapshot.value.toString())
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("Firebase Test", "Failed to read Database")
+            }
+        })
+
+        Log.d("Firebase Test", myRef.get().toString())
+
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
