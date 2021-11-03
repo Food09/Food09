@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ChatAdapter(private val currentUserID: String, private val DataList: ArrayList<ChatModel>) : RecyclerView.Adapter<ChatAdapter.ViewHolder> () {
 
+
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
         val card : CardView = itemView!!.findViewById(R.id.cardView_chat)
@@ -44,5 +45,8 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
         holder.bind(DataList[position], position)
     }
 
+//    fun replaceList(newList: ArrayList<ChatModel>){
+//
+//    }
 
 }

@@ -7,9 +7,9 @@
     tools:context=".ChatListFragment">
 
     <TextView
+        android:id="@+id/notifyTextView_chat"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="공구에 참여했을 경우에 채팅창이 활성화됩니다."
         android:textSize="30dp"
         />
 
