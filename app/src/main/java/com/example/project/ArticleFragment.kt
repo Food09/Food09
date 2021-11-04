@@ -68,10 +68,10 @@ class ArticleFragment : Fragment() {
             val chatUserRef : DatabaseReference = rootDB.getReference("ChatUser")
             chatUserRef.child(userInfo.nickName).setValue(article.articleKey)
 
-            // ToDo: Chat 디비의 멤버에 추가함
+            // Article 디비의 멤버에 추가함? -> 굳이 안해도 됨
 
 
-            // ToDo: Firebase 접속해서 인원수 변경
+            // ToDo: Article 디비의 인원수 변경
 
         }
 
