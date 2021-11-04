@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.TextView
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ArticleFragment : Fragment() {
     val rootDB : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -67,6 +69,18 @@ class ArticleFragment : Fragment() {
             // (현재사용자, articleKey) 데이터를 ChatUser Firebase에 추가하기
             val chatUserRef : DatabaseReference = rootDB.getReference("ChatUser")
             chatUserRef.child(userInfo.nickName).setValue(article.articleKey)
+
+            // 채팅방 접속 알림 메시지
+            val chatRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chat")
+            val chatKey = chatRef.push().key.toString()
+            val now = System.currentTimeMillis()
+            val dateTime : String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
+            val chat : ChatModel = ChatModel(chatKey, "알림", userInfo.nickName + "님이 입장했습니다.", dateTime)
+            val chatValues = chat.toMap()
+            val chatUpdates = hashMapOf<String, Any>(
+                "/${article.articleKey}/${chatKey}" to chatValues
+            )
+            chatRef.updateChildren(chatUpdates)
 
             // Article 디비의 멤버에 추가함? -> 굳이 안해도 됨
 
