@@ -41,12 +41,12 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
     }
 
     override fun getItemCount(): Int {
-        Log.d("ArticleAdapter", "getItemCount : " + articleDataList.count())
+//        Log.d("ArticleAdapter", "getItemCount : " + articleDataList.count())
         return articleDataList.count()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("ArticleAdapter", "===== ===== ===== ===== onBindViewHolder ===== ===== ===== =====")
+//        Log.d("ArticleAdapter", "===== ===== ===== ===== onBindViewHolder ===== ===== ===== =====")
         holder.bind(articleDataList[position], position)
     }
 

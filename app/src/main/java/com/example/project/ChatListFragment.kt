@@ -29,9 +29,18 @@ class ChatListFragment : Fragment() {
     private lateinit var chatChannelKey : String
     private lateinit var chatAdapter : ChatAdapter
     private var currentNickName: String = "charlie"
+    private lateinit var userInfo : UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // MainActivity로부터 사용자 정보 받아오기
+        if (getArguments() == null){
+            return
+        }
+        userInfo = requireArguments()!!.getSerializable("userInfo") as UserModel
+        Log.d("ChatListFragment getArguments : ", userInfo.nickName)
+
 //        init()
     }
 
@@ -96,7 +105,7 @@ class ChatListFragment : Fragment() {
             // add chat data to firebase
             val chatKey : String? = chatRef.push().key
             val now = System.currentTimeMillis()
-            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
+            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
 
             if (chatKey != null && (dateTime) != null) {
                 val chat : ChatModel = ChatModel(chatKey, currentNickName, chatContent.text.toString(), dateTime)

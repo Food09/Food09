@@ -20,6 +20,7 @@ class HomeFragment : Fragment() {
     var articleDataList = ArrayList<ArticleModel>()
     lateinit var myAdapter : ArticleAdapter
     lateinit var articleRef : DatabaseReference
+    lateinit var userInfo : UserModel
     var flag : Int = 0
 //    var activity : MainActivity? = null  // 사용안함
 
@@ -69,7 +70,17 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("onCreate", "onCreat called!")
+//        Log.d("onCreate", "onCreat called!")
+
+
+        // MainActivity로부터 사용자 정보 받아오기
+        if (getArguments() == null){
+            return
+        }
+        userInfo = requireArguments()!!.getSerializable("userInfo") as UserModel
+        Log.d("HomeFragment getArguments : ", userInfo.nickName)
+
+
 
         // EditArticle로부터 article을 받아오기
         requireFragmentManager().setFragmentResultListener("requestKey", this) { key, bundle ->
@@ -92,9 +103,7 @@ class HomeFragment : Fragment() {
             )
             articleRef.updateChildren(childUpdates)
             readArticle()
-//            articleDataList.add(article)
-//            myAdapter.replaceList(articleDataList)
-//
+
         }
     }
 
@@ -124,7 +133,7 @@ class HomeFragment : Fragment() {
                 Log.d("ItemClickListener", "data :" + article.get_userID())
                 // HomeFragment에서 ArticleFragment로 이동
                 val bundle: Bundle = Bundle()
-//           bundle.putString("test", "tttt")
+
                 bundle.putSerializable("articleInfo", article)
                 val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 val articleFragment = ArticleFragment()
