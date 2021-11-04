@@ -6,7 +6,7 @@ import java.util.function.Predicate
 
 
 class ArticleModel (
-    var articleKey: String,
+    var articleKey: String,  // 채팅방 키로 사용함
     val userID: String,
     val userProfile: String,
     var category: String,
