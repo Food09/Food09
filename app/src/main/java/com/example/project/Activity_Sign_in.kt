@@ -65,7 +65,7 @@ class Activity_Sign_in : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
-                        updateUI(user)
+                        updateUI(user, email)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -80,10 +80,11 @@ class Activity_Sign_in : AppCompatActivity() {
     }
 
 
-    private fun updateUI(user: FirebaseUser?) {
+    private fun updateUI(user: FirebaseUser?, email: String) {
         if (user != null){
             // [+] go to main Activity
             val main_Intent = Intent(this, MainActivity::class.java)
+            main_Intent.putExtra("email", email)
             startActivity(main_Intent)
         }
     }
