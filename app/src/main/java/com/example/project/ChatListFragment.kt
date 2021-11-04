@@ -30,7 +30,7 @@ class ChatListFragment : Fragment() {
     private var chatList = arrayListOf<ChatModel>()
     private lateinit var chatChannelKey : String
     private lateinit var chatAdapter : ChatAdapter
-    private var currentNickName: String = "charlie"
+    private lateinit var currentNickName: String
     private lateinit var userInfo : UserModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,30 +43,8 @@ class ChatListFragment : Fragment() {
         userInfo = requireArguments()!!.getSerializable("userInfo") as UserModel
         Log.d("ChatListFragment getArguments : ", userInfo.nickName)
 
-//        init()
     }
 
-//    fun init(){
-//        val user : DatabaseReference = chatUserRef.child(currentNickName)
-//        if (user == null) {
-//            Log.d("ChatListFragment", "Failed to find the user in ChatUser")
-//        }
-//
-//        user.addListenerForSingleValueEvent(object: ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                chatKey = snapshot.value.toString()
-//                Log.d("ChatListFragment", chatKey.toString())
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.d("ChatListFragment", "Failed to find the user in ChatUser (reading data)")
-//            }
-//        })
-//    }
-
-    fun findChat() : Boolean {
-        return false
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -74,19 +52,11 @@ class ChatListFragment : Fragment() {
     ): View? {
         var rootView = inflater.inflate(R.layout.fragment_chat_list, container, false)
 
-        // Todo: 닉네임 초기화 수정
-        currentNickName = "charlie"
+        // 닉네임 초기화
+        currentNickName = userInfo.nickName
 
 
         val chatContent = rootView.findViewById(R.id.et_chatting) as TextView
-
-        // Todo: 현재 유저가 있는 채팅방 찾기 -> chatRef 초기화
-//        if ( findChat() == false ){
-//            notify.text = "공구에 참여했을 경우에 채팅창이 활성화됩니다."
-//            return rootView
-//        }
-
-
 
         // RecyclerView 설정
         var recyclerView = rootView.findViewById(R.id.recyclerView_chat!!) as RecyclerView
@@ -132,14 +102,9 @@ class ChatListFragment : Fragment() {
     }
 
     private fun readChat(){
-        // find key
         // 현재 유저의 닉네임으로 참여하고 있는 채팅방 찾기
-//        Log.d("ChatListFragment !!! chatKey ! ", chatKey.toString())
-
-
-//        val user = chatUserRef.equalTo(currentNickName)
+        // 해당 채팅방 내용 읽어오기
         val user = chatUserRef.child(currentNickName)
-//
         user.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
