@@ -197,7 +197,8 @@ class HomeFragment : Fragment() {
                     val maxNum : Int = article.child("maxNum").value.toString().toInt()
                     val dateTime : String = article.child("dateTime").value.toString()
                     val members : ArrayList<String> = arrayListOf(userID)
-                    tmpArticleDataList.add(ArticleModel(articleKey, userID, userProfile, category, title, content, maxNum, curNum, dateTime, members))
+                    val imageUrls : ArrayList<String> = arrayListOf()
+                    tmpArticleDataList.add(ArticleModel(articleKey, userID, userProfile, category, title, content, maxNum, curNum, dateTime, members, imageUrls))
                 }
                 articleDataList = tmpArticleDataList
                 articleDataList.reverse()

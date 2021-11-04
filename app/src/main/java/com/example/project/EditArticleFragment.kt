@@ -64,7 +64,8 @@ class EditArticleFragment : Fragment() {
 
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
             val members : ArrayList<String> = arrayListOf(userInfo.email)
-            var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members)
+            val imageUrls : ArrayList<String> = arrayListOf()
+            var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)
             article.set_title(title.text.toString())
             article.set_content(content.text.toString())
             val bundle: Bundle = Bundle()
