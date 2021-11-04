@@ -12,8 +12,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_create_info.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Activity_create_info : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -61,7 +65,7 @@ class Activity_create_info : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
                             val user = auth.currentUser
-                            updateUI(user, displayName, my_info)
+                            updateUI( user, email, displayName, my_info)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.exception)
@@ -93,14 +97,28 @@ class Activity_create_info : AppCompatActivity() {
 
     }
 
-    private fun updateUI(user: FirebaseUser?, display_name: String, my_info: String) {
+    private fun updateUI(user: FirebaseUser?, email: String, display_name: String, my_info: String) {
         if (user != null){
             // [+] go to register
 
             val profileUpdates = userProfileChangeRequest {
-                // Todo : display_name변수는 nickname
-                // Todo : my_info 변수는 자기소개
+                // display_name변수는 nickname
+                // my_info 변수는 자기소개
                 displayName = display_name
+                val userRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("User")
+                val userKey : String? = userRef.push().key
+                val now = System.currentTimeMillis()
+                val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss a zzz", Locale.KOREAN).format(now)
+
+                if (userKey != null && (dateTime) != null) {
+                    val user : UserModel = UserModel(userKey, email, display_name, my_info, dateTime)
+                    val userValues = user.toMap()
+                    Log.d("Create Info", userValues.toString())
+                    val childUpdates = hashMapOf<String, Any>(
+                        "/${userKey}" to userValues
+                    )
+                    userRef.updateChildren(childUpdates)
+                }
                 // photoUri = Uri.parse("https://example.com/jane-q-user/profile.jpg")
             }
             user!!.updateProfile(profileUpdates)

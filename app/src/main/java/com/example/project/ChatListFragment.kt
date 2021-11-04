@@ -96,7 +96,7 @@ class ChatListFragment : Fragment() {
             // add chat data to firebase
             val chatKey : String? = chatRef.push().key
             val now = System.currentTimeMillis()
-            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
+            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
 
             if (chatKey != null && (dateTime) != null) {
                 val chat : ChatModel = ChatModel(chatKey, currentNickName, chatContent.text.toString(), dateTime)

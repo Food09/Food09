@@ -41,7 +41,7 @@ class EditArticleFragment : Fragment() {
 
             Log.d("EditArticleFragment", "Submit Clicked!")
             val now = System.currentTimeMillis()
-            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd.HH:mm:ss", Locale.KOREAN).format(now)
+            val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
 
 //            val dateTime : String = LocalDateTime.now().toString()
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)

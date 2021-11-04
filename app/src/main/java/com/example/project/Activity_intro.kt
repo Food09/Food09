@@ -12,8 +12,8 @@ class Activity_intro : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         Handler().postDelayed({
-//            val intent = Intent(this, Activity_Sign_in::class.java)
-            val intent = Intent(this, MainActivity::class.java) // Debug
+            val intent = Intent(this, Activity_Sign_in::class.java)
+//            val intent = Intent(this, MainActivity::class.java) // Debug
 
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
