@@ -20,6 +20,9 @@ class HomeFragment : Fragment() {
     var articleDataList = ArrayList<ArticleModel>()
     lateinit var myAdapter : ArticleAdapter
     lateinit var articleRef : DatabaseReference
+    lateinit var chatRef : DatabaseReference
+    lateinit var chatUserRef : DatabaseReference
+
     lateinit var userInfo : UserModel
     var flag : Int = 0
 //    var activity : MainActivity? = null  // 사용안함
@@ -90,11 +93,11 @@ class HomeFragment : Fragment() {
 
             // EditArticle로부터 받아온 article을 Firebase에 추가하기
             val uploadRef : DatabaseReference = articleRef.push()
-            val key : String? = uploadRef.key
-            if (key == null) {
+            val articleKey : String? = uploadRef.key
+            if (articleKey == null) {
                 return@setFragmentResultListener
             }
-            article.set_articleKey(key) // articleKey 세팅
+            article.set_articleKey(articleKey) // articleKey 세팅
             Log.d("HomeFragment article! : ", article.toString())
             val articleValues = article.toMap()
 
@@ -104,12 +107,28 @@ class HomeFragment : Fragment() {
             articleRef.updateChildren(childUpdates)
             readArticle()
 
+            // ToDo: Chat에 채팅방 생성
+            // 게시글에 대한 채팅 방 최초 생성
+            val chatKey = chatRef.push().key.toString()
+            val chat : ChatModel = ChatModel(chatKey, "알림", "\"" + article.title + "\" 방입니다.", "")
+            val chatValues = chat.toMap()
+            val chatUpdates = hashMapOf<String, Any>(
+                "/${articleKey}/${chatKey}" to chatValues
+            )
+            chatRef.updateChildren(chatUpdates)
+
+            // ToDo: ChatUser에도 추가
+            chatUserRef.child(userInfo.nickName).setValue(articleKey)
+
+            // ToDo: 채팅방으로 이동?
         }
     }
 
     fun dbInit(){
         val database: FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
         articleRef = database.getReference("Article")
+        chatRef = database.getReference("Chat")
+        chatUserRef = database.getReference("ChatUser")
     }
 
     override fun onCreateView(
@@ -135,6 +154,7 @@ class HomeFragment : Fragment() {
                 val bundle: Bundle = Bundle()
 
                 bundle.putSerializable("articleInfo", article)
+                bundle.putSerializable("userInfo", userInfo)
                 val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 val articleFragment = ArticleFragment()
                 articleFragment.setArguments(bundle)
