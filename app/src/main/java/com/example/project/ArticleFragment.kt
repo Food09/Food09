@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_article.*
 
 class ArticleFragment : Fragment() {
     val rootDB : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
@@ -62,6 +64,10 @@ class ArticleFragment : Fragment() {
             userNumber.text = article.get_curNum().toString() + " / " + article.get_maxNum().toString()
         }
 
+
+
+
+
         enterButton.setOnClickListener {
             Log.d("ArticleFragment", "enterButton Clicked!")
             // (현재사용자, articleKey) 데이터를 ChatUser Firebase에 추가하기
@@ -72,11 +78,9 @@ class ArticleFragment : Fragment() {
 
 
             // ToDo: Article 디비의 인원수 변경
-
         }
-
         return rootView
-    }
 
+    }
 
 }
