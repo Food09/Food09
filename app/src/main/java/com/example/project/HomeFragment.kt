@@ -247,7 +247,10 @@ class HomeFragment : Fragment() {
                 Log.d("log", "Floating Button pushed!")
                 val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
                 val editArticleFragment = EditArticleFragment()
-                // ToDo: user 정보 bundle 추가해야함
+
+                val bundle : Bundle = Bundle()
+                bundle.putSerializable("userInfo", userInfo)
+                editArticleFragment.setArguments(bundle)
                 transaction.add(R.id.fragementContainer, editArticleFragment).addToBackStack(null).commit()
             }
         }
