@@ -107,7 +107,7 @@ class HomeFragment : Fragment() {
             articleRef.updateChildren(childUpdates)
             readArticle()
 
-            // ToDo: Chat에 채팅방 생성
+            // Chat에 채팅방 생성
             // 게시글에 대한 채팅 방 최초 생성
             val chatKey = chatRef.push().key.toString()
             val chat : ChatModel = ChatModel(chatKey, "알림", "\"" + article.title + "\" 방입니다.", "")
@@ -117,7 +117,7 @@ class HomeFragment : Fragment() {
             )
             chatRef.updateChildren(chatUpdates)
 
-            // ToDo: ChatUser에도 추가
+            // ChatUser에도 추가
             chatUserRef.child(userInfo.nickName).setValue(articleKey)
 
             // ToDo: 채팅방으로 이동?
