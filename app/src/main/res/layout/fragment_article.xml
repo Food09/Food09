@@ -12,8 +12,15 @@
         android:id="@+id/top_relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/article_image"
+            android:layout_width="match_parent"
+
+            android:layout_height="250dp"
+            android:background="@drawable/ic_baseline_fastfood_24" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/UserProfileImageView"
@@ -23,19 +30,21 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_baseline_person_24"
+            android:layout_below="@+id/article_image"
             app:civ_border_color="#E6E6E6"
             app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/userIDTextView_article"
+            android:layout_below="@+id/article_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
             android:layout_toRightOf="@+id/UserProfileImageView"
             android:text="Charlie"
-            android:textSize="20dp"
             android:textColor="#000000"
+            android:textSize="20dp"
             android:textStyle="bold" />
 
         <TextView
@@ -73,8 +82,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
             android:maxLength="350"
-            android:textColor="#000000"
             android:text="야곱야곱에서 야채곱창 시키려고 하는데, 탑승하실 분 있으면 들어와주세요~"
+            android:textColor="#000000"
             android:textSize="15dp" />
 
 
@@ -95,38 +104,86 @@
             android:layout_height="wrap_content"
 
             android:layout_below="@+id/contentTextView_article"
-            android:layout_toRightOf="@+id/person_imageView"
             android:layout_marginTop="30dp"
+            android:layout_toRightOf="@+id/person_imageView"
 
-            android:textColor="#000000"
             android:text="1 / 4"
+            android:textColor="#000000"
             android:textSize="20dp"
             android:textStyle="bold" />
-
 
         <Button
             android:id="@+id/buttonEnter_article"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_below="@+id/contentTextView_article"
-            android:layout_alignRight="@+id/contentTextView_article"
+            android:layout_alignParentRight="true"
             android:layout_marginTop="20dp"
-            android:background="@drawable/circle_border"
+            android:background="@drawable/half_circle_border"
+            android:paddingRight="10dp"
+
             android:text="참여하기"
             android:textColor="@color/colorWhite"
             android:textSize="16dp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/second"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/buttonEnter_article"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/half_circle_border"
+            android:paddingRight="30dp"
+            android:text="삭제"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/third"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/second"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/half_circle_border"
+            android:paddingRight="30dp"
+            android:text="수정"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/fourth"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/third"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:paddingRight="20dp"
+            android:background="@drawable/half_circle_border"
+            android:text="이미지"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/fifth"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_below="@+id/fourth"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/half_circle_border"
+            android:text="남는 버튼"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
     </RelativeLayout>
-
-
-
-
-
-
-
-
-
 
 
 

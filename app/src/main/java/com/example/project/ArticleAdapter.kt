@@ -28,6 +28,8 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
             val numStr = curNum.toString() + " / " + maxNum.toString()
             txtNum.text = numStr
 
+
+
             itemView.setOnClickListener {
                 itemClick(data)
             }
