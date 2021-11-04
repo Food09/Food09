@@ -110,6 +110,7 @@ class ChatListFragment : Fragment() {
             }
             readChat()
             recyclerView.smoothScrollToPosition(chatList.size)
+            et_chatting.setText("")
         }
 
         return rootView
