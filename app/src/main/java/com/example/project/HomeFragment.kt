@@ -151,7 +151,9 @@ class HomeFragment : Fragment() {
     }
 
     fun readArticle(){
-        articleRef.addValueEventListener(object: ValueEventListener {
+        val articleQuery = articleRef.orderByChild("dateTime")
+
+        articleQuery.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 var tmpArticleDataList = ArrayList<ArticleModel>()
                 for ( article in snapshot.children ){
@@ -169,6 +171,7 @@ class HomeFragment : Fragment() {
                     tmpArticleDataList.add(ArticleModel(articleKey, userID, userProfile, category, title, content, maxNum, curNum, dateTime, members))
                 }
                 articleDataList = tmpArticleDataList
+                articleDataList.reverse()
                 myAdapter.replaceList(articleDataList)
             }
 

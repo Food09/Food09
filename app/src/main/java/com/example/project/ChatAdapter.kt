@@ -8,8 +8,9 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 
-class ChatAdapter(private val currentUserID: String, private val DataList: ArrayList<ChatModel>) : RecyclerView.Adapter<ChatAdapter.ViewHolder> () {
+class ChatAdapter(private val currentNickName: String, private val DataList: ArrayList<ChatModel>) : RecyclerView.Adapter<ChatAdapter.ViewHolder> () {
 
+    var chatList = ArrayList<ChatModel>()
 
     inner class ViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView!!){
 
@@ -21,10 +22,11 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
 
         fun bind(data: ChatModel, position: Int){
 
-            if (currentUserID == DataList[position].nickName) {
-                card.setCardBackgroundColor(Color.parseColor("#FFF176"))
+            if (currentNickName == DataList[position].nickName) {
+                card.setCardBackgroundColor(Color.parseColor("#FFC107"))
+            } else {
+                card.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             }
-
             nickName.text = DataList[position].nickName
             dateTime.text = DataList[position].dateTime
             content.text = DataList[position].content
@@ -46,7 +48,8 @@ class ChatAdapter(private val currentUserID: String, private val DataList: Array
     }
 
 //    fun replaceList(newList: ArrayList<ChatModel>){
-//
+//        chatList = newList
+//        notifyDataSetChanged()
 //    }
 
 }
