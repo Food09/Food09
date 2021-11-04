@@ -67,7 +67,6 @@ class ChatListFragment : Fragment() {
         currentNickName = "charlie"
 
 
-        val notify = rootView.findViewById(R.id.notifyTextView_chat!!) as TextView
         val chatContent = rootView.findViewById(R.id.et_chatting) as TextView
 
         // Todo: 현재 유저가 있는 채팅방 찾기 -> chatRef 초기화
@@ -76,7 +75,7 @@ class ChatListFragment : Fragment() {
 //            return rootView
 //        }
 
-        notify.text = ""
+
 
         // RecyclerView 설정
         var recyclerView = rootView.findViewById(R.id.recyclerView_chat!!) as RecyclerView
@@ -127,6 +126,9 @@ class ChatListFragment : Fragment() {
 //
         user.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
+                notifyTextView_chat.text = ""
+
                 chatChannelKey = snapshot.value.toString()
                 Log.d("ChatListFragment chatChannelKey", chatChannelKey)
                 chatRef = rootChatRef.child(chatChannelKey)
