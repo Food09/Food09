@@ -7,10 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 
 class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClick: (ArticleModel) -> Unit): RecyclerView.Adapter<ArticleAdapter.ViewHolder> () {
 
     var articleDataList = ArrayList<ArticleModel>()
+    val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
+    val imageRef : StorageReference = storage.getReference("Images")
 
     inner class ViewHolder(itemView: View?, itemClick: (ArticleModel) -> Unit): RecyclerView.ViewHolder(itemView!!){
 
@@ -28,7 +35,12 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
             val numStr = curNum.toString() + " / " + maxNum.toString()
             txtNum.text = numStr
 
-
+            val tmpImageRef : StorageReference = imageRef.child("defaultImages/Chicken.jpeg")
+            tmpImageRef.downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Glide.with(imgThumbnail.context).load(it.result).into(imgThumbnail)
+                }
+            }
 
             itemView.setOnClickListener {
                 itemClick(data)

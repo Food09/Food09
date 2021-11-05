@@ -64,7 +64,7 @@ class EditArticleFragment : Fragment() {
 
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
             val members : ArrayList<String> = arrayListOf(userInfo.email)
-            val imageUrls : ArrayList<String> = arrayListOf("gs://food09-581c6.appspot.com/도시락.jpg")
+            val imageUrls : ArrayList<String> = arrayListOf("defaultImages/Chicken.jpeg")
             var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)
             article.set_title(title.text.toString())
             article.set_content(content.text.toString())
