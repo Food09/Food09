@@ -155,6 +155,14 @@ class ArticleFragment : Fragment() {
         deleteButton.setOnClickListener {
             Log.d("ArticleFragment", "deleteButton Clicked!")
 
+            // ToDo: Article DB에서 삭제
+
+
+            // ToDo: Chat DB도 삭제
+            
+            // ToDo: ChatUser DB에서 사용자들 모두 삭제
+
+
             parentFragmentManager.popBackStack()
         }
 
