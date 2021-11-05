@@ -20,10 +20,10 @@
         <ImageView
             android:id="@+id/article_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="-60dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/ic_baseline_fastfood_24" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -123,7 +123,7 @@
             android:layout_below="@+id/userNumberTextView_article"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="11dp"
             android:background="@drawable/circle_border"
 
 
@@ -140,7 +140,7 @@
 
             android:layout_alignParentRight="true"
 
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_marginRight="-20dp"
             android:background="@drawable/half_circle_border"
             android:paddingRight="30dp"
@@ -156,9 +156,9 @@
             android:layout_below="@+id/second"
             android:layout_alignParentRight="true"
             android:layout_marginTop="10dp"
-            android:background="@drawable/half_circle_border"
-            android:paddingRight="30dp"
             android:layout_marginRight="-20dp"
+            android:background="@drawable/half_circle_border2"
+            android:paddingRight="30dp"
             android:text="수정"
             android:textColor="@color/colorWhite"
             android:textSize="16dp"

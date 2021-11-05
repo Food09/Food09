@@ -1,5 +1,6 @@
 package com.example.project
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +25,10 @@ class ChatAdapter(private val currentNickName: String, private val DataList: Arr
 
             if (currentNickName == DataList[position].nickName) {
                 card.setCardBackgroundColor(Color.parseColor("#FFC107"))
-            } else {
+            } else if ("알림" == DataList[position].nickName){
+                card.setCardBackgroundColor(Color.parseColor("#FFEAAD"))
+            }
+            else {
                 card.setCardBackgroundColor(Color.parseColor("#FFFFFF"))
             }
             nickName.text = DataList[position].nickName
