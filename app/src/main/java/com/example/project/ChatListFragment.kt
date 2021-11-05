@@ -37,6 +37,7 @@ class ChatListFragment : Fragment() {
     private lateinit var userInfo : UserModel
     private lateinit var btnSend : Button
     private lateinit var btnExit : com.google.android.material.floatingactionbutton.FloatingActionButton // FloatingActionButton 캐스팅 이거로 해야함!
+    private lateinit var txtNotify : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,13 +75,13 @@ class ChatListFragment : Fragment() {
 
         // 나가기 버튼
         btnExit = rootView.findViewById(R.id.chat_exit_btn!!)
-
+        txtNotify = rootView.findViewById(R.id.notifyTextView_chat!!)
 
         // 메시지 발송 버튼
         btnSend = rootView.findViewById(R.id.btn_send!!) as Button
 //        btnSend.isEnabled = true
 
-        // ToDo: 채팅방에 입장하지 않았을 때는 버튼 비활성화 및 안내 문구 보여주기
+        // 채팅방에 입장하지 않았을 때는 버튼 비활성화 및 안내 문구 보여주기
 
 
         readChat()
@@ -143,7 +144,7 @@ class ChatListFragment : Fragment() {
                             chatList.add(ChatModel(chatKey, nickName, content, dataTime))
                         }
                         if (chatList.size > 0) {
-                            notifyTextView_chat.text = ""
+                            txtNotify.text = ""
                             btnSend.isEnabled = true
                             btnExit.isEnabled = true
                         }
@@ -202,10 +203,11 @@ class ChatListFragment : Fragment() {
         } else {
             btn_send.isEnabled = false
             chat_exit_btn.isEnabled = false
+            notifyTextView_chat.text = "게시글에서 공구에 참여해보세요!"
+            notifyTextView_chat.gravity = Gravity.CENTER
         }
 
-        notifyTextView_chat.text = "게시글에서 공구에 참여해보세요!"
-        notifyTextView_chat.gravity = Gravity.CENTER
+
 
         // 채팅방 나가기 버튼 이벤트 리스너 설정
         chat_exit_btn.setOnClickListener {
@@ -226,8 +228,11 @@ class ChatListFragment : Fragment() {
             chatChannelRef.updateChildren(chatUpdates)
 
             // HomeFragment로 이동
+            val bundle : Bundle = Bundle()
+            bundle.putSerializable("userInfo", userInfo)
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             val homeFragment : HomeFragment = HomeFragment()
+            homeFragment.setArguments(bundle)
             transaction.replace(R.id.fragementContainer, homeFragment).commit()
         }
     }

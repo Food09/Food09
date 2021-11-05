@@ -7,9 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
+import com.bumptech.glide.Glide
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -17,6 +24,9 @@ class ArticleFragment : Fragment() {
     val rootDB : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
     lateinit var article : ArticleModel
     lateinit var userInfo : UserModel
+    val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
+    val imageRef : StorageReference = storage.getReference("Images")
+
 //    private lateinit var callback: OnBackPressedCallback
 //
 //    override fun onAttach(context: Context) {
@@ -48,7 +58,7 @@ class ArticleFragment : Fragment() {
         val content : TextView = rootView!!.findViewById(R.id.contentTextView_article)
         val userNumber : TextView = rootView!!.findViewById(R.id.userNumberTextView_article)
         val enterButton : Button = rootView!!.findViewById(R.id.buttonEnter_article)
-
+        val articleImage : ImageView = rootView!!.findViewById(R.id.article_image)
 
         if (getArguments() != null){
 //            var data : String? = requireArguments().getString("test")
@@ -62,6 +72,13 @@ class ArticleFragment : Fragment() {
             title.text = article.get_title()
             content.text = article.get_content()
             userNumber.text = article.get_curNum().toString() + " / " + article.get_maxNum().toString()
+
+            val tmpImageRef : StorageReference = imageRef.child(article.imageUrls[0])
+            tmpImageRef.downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Glide.with(articleImage.context).load(it.result).centerCrop().placeholder(R.drawable.ic_baseline_fastfood_24).into(articleImage)
+                }
+            }
         }
 
         enterButton.setOnClickListener {
@@ -87,6 +104,15 @@ class ArticleFragment : Fragment() {
 
             // ToDo: Article 디비의 인원수 변경
 
+
+            // 참여하기 버튼 누르면 채팅 창으로 이동
+            // ChatListFragment로 이동
+            val bundle : Bundle = Bundle()
+            bundle.putSerializable("userInfo", userInfo)
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            val chatListFragment : ChatListFragment = ChatListFragment()
+            chatListFragment.setArguments(bundle)
+            transaction.replace(R.id.fragementContainer, chatListFragment).commit()
         }
 
         return rootView
