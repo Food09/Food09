@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -81,6 +82,7 @@ class ChatListFragment : Fragment() {
 
         // ToDo: 채팅방에 입장하지 않았을 때는 버튼 비활성화 및 안내 문구 보여주기
 
+
         readChat()
 
 
@@ -121,7 +123,7 @@ class ChatListFragment : Fragment() {
         user.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                notifyTextView_chat.text = ""
+
 
                 chatChannelKey = snapshot.value.toString()
                 Log.d("ChatListFragment chatChannelKey", chatChannelKey)
@@ -141,6 +143,7 @@ class ChatListFragment : Fragment() {
                             chatList.add(ChatModel(chatKey, nickName, content, dataTime))
                         }
                         if (chatList.size > 0) {
+                            notifyTextView_chat.text = ""
                             btnSend.isEnabled = true
                             btnExit.isEnabled = true
                         }
@@ -200,6 +203,9 @@ class ChatListFragment : Fragment() {
             btn_send.isEnabled = false
             chat_exit_btn.isEnabled = false
         }
+
+        notifyTextView_chat.text = "게시글에서 공구에 참여해보세요!"
+        notifyTextView_chat.gravity = Gravity.CENTER
 
         // 채팅방 나가기 버튼 이벤트 리스너 설정
         chat_exit_btn.setOnClickListener {
