@@ -25,8 +25,8 @@ import java.util.*
 class ChatListFragment : Fragment() {
     private val rootRef : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
     private val rootChatRef : DatabaseReference = rootRef.getReference("Chat")
-    private val chatUserRef : DatabaseReference = rootRef.getReference("ChatUser")
-    private lateinit var chatRef : DatabaseReference
+    private val rootChatUserRef : DatabaseReference = rootRef.getReference("ChatUser")
+    private lateinit var chatChannelRef : DatabaseReference
     private var chatList = arrayListOf<ChatModel>()
     private lateinit var chatChannelKey : String
     private lateinit var chatAdapter : ChatAdapter
@@ -81,7 +81,7 @@ class ChatListFragment : Fragment() {
             }
 
             // add chat data to firebase
-            val chatKey : String? = chatRef.push().key
+            val chatKey : String? = chatChannelRef.push().key
             val now = System.currentTimeMillis()
             val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
 
@@ -92,7 +92,7 @@ class ChatListFragment : Fragment() {
                 val childUpdates = hashMapOf<String, Any>(
                     "/${chatKey}" to chatValues
                 )
-                chatRef.updateChildren(childUpdates)
+                chatChannelRef.updateChildren(childUpdates)
 
             }
             readChat()
@@ -106,7 +106,7 @@ class ChatListFragment : Fragment() {
     private fun readChat(){
         // 현재 유저의 닉네임으로 참여하고 있는 채팅방 찾기
         // 해당 채팅방 내용 읽어오기
-        val user = chatUserRef.child(currentNickName)
+        val user = rootChatUserRef.child(currentNickName)
         user.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
@@ -114,9 +114,9 @@ class ChatListFragment : Fragment() {
 
                 chatChannelKey = snapshot.value.toString()
                 Log.d("ChatListFragment chatChannelKey", chatChannelKey)
-                chatRef = rootChatRef.child(chatChannelKey)
+                chatChannelRef = rootChatRef.child(chatChannelKey)
 
-                val chatQuery = chatRef.orderByChild("dateTime")
+                val chatQuery = chatChannelRef.orderByChild("dateTime")
 
                 chatQuery.addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -181,11 +181,20 @@ class ChatListFragment : Fragment() {
         // 채팅방 나가기 버튼 이벤트 리스너 설정
         chat_exit_btn.setOnClickListener {
             Log.d("ChatListFragment", "Exit Button Clicked!")
-            // ToDo: ChatUser DB 상에서 현재 유저 데이터 삭제
+            // ChatUser DB 상에서 현재 유저 데이터 삭제
+            rootChatUserRef.child(userInfo.nickName).setValue(null)
 
-
-            // ToDo: Chat에서 나갔습니다 메시지 남기기
-
+            // Chat에서 나갔습니다 메시지 남기기
+            // 채팅방 나가기 알림 메시지
+            val chatKey = chatChannelRef.push().key.toString()
+            val now = System.currentTimeMillis()
+            val dateTime : String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
+            val chat : ChatModel = ChatModel(chatKey, "알림", userInfo.nickName + "님이 퇴장하셨습니다.", dateTime)
+            val chatValues = chat.toMap()
+            val chatUpdates = hashMapOf<String, Any>(
+                "/${chatKey}" to chatValues
+            )
+            chatChannelRef.updateChildren(chatUpdates)
         }
     }
 
