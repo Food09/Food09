@@ -50,7 +50,6 @@ class ArticleFragment : Fragment() {
         val userNumber : TextView = rootView!!.findViewById(R.id.userNumberTextView_article)
         val enterButton : Button = rootView!!.findViewById(R.id.buttonEnter_article)
 
-
         if (getArguments() != null){
 //            var data : String? = requireArguments().getString("test")
 //            Log.d("ArticleFragment", "data : " + data)

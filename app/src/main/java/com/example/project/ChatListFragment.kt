@@ -203,10 +203,11 @@ class ChatListFragment : Fragment() {
         } else {
             btn_send.isEnabled = false
             chat_exit_btn.isEnabled = false
+            notifyTextView_chat.text = "게시글에서 공구에 참여해보세요!"
+            notifyTextView_chat.gravity = Gravity.CENTER
         }
 
-        notifyTextView_chat.text = "게시글에서 공구에 참여해보세요!"
-        notifyTextView_chat.gravity = Gravity.CENTER
+
 
         // 채팅방 나가기 버튼 이벤트 리스너 설정
         chat_exit_btn.setOnClickListener {
@@ -227,8 +228,11 @@ class ChatListFragment : Fragment() {
             chatChannelRef.updateChildren(chatUpdates)
 
             // HomeFragment로 이동
+            val bundle : Bundle = Bundle()
+            bundle.putSerializable("userInfo", userInfo)
             val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
             val homeFragment : HomeFragment = HomeFragment()
+            homeFragment.setArguments(bundle)
             transaction.replace(R.id.fragementContainer, homeFragment).commit()
         }
     }
