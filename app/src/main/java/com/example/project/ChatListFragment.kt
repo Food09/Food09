@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.getbase.floatingactionbutton.FloatingActionButton
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_article.*
 import kotlinx.android.synthetic.main.fragment_chat_list.*
@@ -33,6 +34,9 @@ class ChatListFragment : Fragment() {
     private lateinit var chatAdapter : ChatAdapter
     private lateinit var currentNickName: String
     private lateinit var userInfo : UserModel
+    private lateinit var btnSend : Button
+    private lateinit var btnExit : com.google.android.material.floatingactionbutton.FloatingActionButton // FloatingActionButton 캐스팅 이거로 해야함!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,16 +69,20 @@ class ChatListFragment : Fragment() {
         chatAdapter = ChatAdapter(currentNickName, chatList)
         recyclerView.adapter = chatAdapter
 
-        readChat()
 
 
+        // 나가기 버튼
+        btnExit = rootView.findViewById(R.id.chat_exit_btn!!)
 
 
         // 메시지 발송 버튼
-        var btnSend = rootView.findViewById(R.id.btn_send!!) as Button
-        btnSend.isEnabled = true
+        btnSend = rootView.findViewById(R.id.btn_send!!) as Button
+//        btnSend.isEnabled = true
 
-        // ToDo: 채팅방에 입장하지 않았을 대는 버튼 비활성화 및 안내 문구 보여주기
+        // ToDo: 채팅방에 입장하지 않았을 때는 버튼 비활성화 및 안내 문구 보여주기
+
+        readChat()
+
 
         btnSend.setOnClickListener {
             Log.d("ChatListFragment", "btn clicked!")
@@ -132,6 +140,10 @@ class ChatListFragment : Fragment() {
                             val dataTime: String = chat.child("dateTime").value.toString()
                             chatList.add(ChatModel(chatKey, nickName, content, dataTime))
                         }
+                        if (chatList.size > 0) {
+                            btnSend.isEnabled = true
+                            btnExit.isEnabled = true
+                        }
                         chatAdapter.notifyDataSetChanged()
                     }
 
@@ -181,11 +193,19 @@ class ChatListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        if (chatList.size > 0) {
+            btn_send.isEnabled = true
+            chat_exit_btn.isEnabled = true
+        } else {
+            btn_send.isEnabled = false
+            chat_exit_btn.isEnabled = false
+        }
+
         // 채팅방 나가기 버튼 이벤트 리스너 설정
         chat_exit_btn.setOnClickListener {
             Log.d("ChatListFragment", "Exit Button Clicked!")
             // ChatUser DB 상에서 현재 유저 데이터 삭제
-            rootChatUserRef.child(userInfo.nickName).setValue(null)
+            rootChatUserRef.child(userInfo.nickName).removeValue()
 
             // Chat에서 나갔습니다 메시지 남기기
             // 채팅방 나가기 알림 메시지
