@@ -63,8 +63,12 @@ class ArticleFragment : Fragment() {
         val editButton : Button = rootView!!.findViewById(R.id.third)
         val deleteButton : Button = rootView!!.findViewById(R.id.second)
 
+        // 버튼 비활성화
         editButton.isEnabled = false
         deleteButton.isEnabled = false
+        // 버튼 가리기
+        editButton.visibility = View.INVISIBLE
+        deleteButton.visibility = View.INVISIBLE
 
         if (getArguments() != null){
 //            var data : String? = requireArguments().getString("test")
@@ -87,11 +91,13 @@ class ArticleFragment : Fragment() {
                 }
             }
 
-            // ToDo: 버튼 작성자에게만 보이게하고 활성화하기
+            // 버튼 작성자에게만 보이게하고 활성화하기
             if (userInfo.nickName == article.userID){
                 isAuthor = true
                 editButton.isEnabled = true
                 deleteButton.isEnabled = true
+                editButton.visibility = View.VISIBLE
+                deleteButton.visibility = View.VISIBLE
             }
         }
 
