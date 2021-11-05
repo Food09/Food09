@@ -11,9 +11,12 @@
 
 ### 스크린샷
 
-
-
-
+<div>
+<img src="./pictures/Food09_picture1.png" height="500">
+<img src="./pictures/Food09_picture3.png" height="500">
+<img src="./pictures/Food09_picture2.png" height="500">
+</div>
+  
 ### 데모 영상
 
 [https://youtu.be/p3VK8lMnmGg](https://youtu.be/p3VK8lMnmGg)
