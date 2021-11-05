@@ -10,4 +10,34 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string-array name="food_category">
+        <item>한식</item>
+        <item>분식</item>
+        <item>카페/디저트</item>
+        <item>치킨</item>
+        <item>피자</item>
+        <item>패스트푸드</item>
+        <item>일식</item>
+        <item>중국집</item>
+        <item>아시안양식</item>
+        <item>족발/보쌈</item>
+        <item>야식</item>
+        <item>도시락</item>
+    </string-array>
+
+    <string-array name="food_default_iamge_category">
+        <item>defaultImages/Korea.jpeg</item>
+        <item>defaultImages/Bunsik.png</item>
+        <item>defaultImages/Caffe.jpeg</item>
+        <item>defaultImages/Chicken.jpeg</item>
+        <item>defaultImages/Pizza.jpeg</item>
+        <item>defaultImages/Fastfood.jpeg</item>
+        <item>defaultImages/Japen.jpeg</item>
+        <item>defaultImages/China.jpeg</item>
+        <item>defaultImages/Asia.jpeg</item>
+        <item>defaultImages/Jokbal.jpeg</item>
+        <item>defaultImages/Yasik.jpg</item>
+        <item>defaultImages/Dosirak.jpg</item>
+    </string-array>
 </resources>

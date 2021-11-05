@@ -15,8 +15,18 @@ class ArticleModel (
     var maxNum: Int,
     var curNum: Int,
     var dateTime: String?,
-    var members: ArrayList<String>
+    var members: ArrayList<String>,
+    var imageUrls: ArrayList<String>
     ) : Serializable{
+    fun get_imageUrls() : ArrayList<String> {
+        return imageUrls
+    }
+    fun add_imageUrl(imageUrl: String) {
+        this.imageUrls.add(imageUrl)
+    }
+    fun del_imageUrl(imageUrl: String) {
+        this.imageUrls.remove(imageUrl)
+    }
     fun get_articleKey(): String? {
         return articleKey
     }
@@ -80,7 +90,8 @@ class ArticleModel (
             "maxNum" to maxNum,
             "curNum" to curNum,
             "dateTime" to dateTime,
-            "members" to members
+            "members" to members,
+            "imageUrls" to imageUrls
         )
     }
 }

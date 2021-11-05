@@ -115,6 +115,13 @@
             android:textSize="10dp"
             android:background="@drawable/circle_border"
             android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/Category_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contentTextView_edit"
+            android:layout_marginTop="40dp" />
     </RelativeLayout>
 
 </FrameLayout>
