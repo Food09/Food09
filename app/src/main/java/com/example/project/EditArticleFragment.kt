@@ -97,11 +97,12 @@ class EditArticleFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            // ArticleModel 생성 후 HomeFragment로 전달
             Log.d("EditArticleFragment", "Submit Clicked!")
             val now = System.currentTimeMillis()
             val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
-
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
+
             val members : ArrayList<String> = arrayListOf(userInfo.email)
             val imageUrls : ArrayList<String> = arrayListOf(categoryValue.toString())
             var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)

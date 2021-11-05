@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
@@ -72,6 +73,8 @@ class ChatListFragment : Fragment() {
         // 메시지 발송 버튼
         var btnSend = rootView.findViewById(R.id.btn_send!!) as Button
         btnSend.isEnabled = true
+
+        // ToDo: 채팅방에 입장하지 않았을 대는 버튼 비활성화 및 안내 문구 보여주기
 
         btnSend.setOnClickListener {
             Log.d("ChatListFragment", "btn clicked!")
@@ -195,6 +198,11 @@ class ChatListFragment : Fragment() {
                 "/${chatKey}" to chatValues
             )
             chatChannelRef.updateChildren(chatUpdates)
+
+            // HomeFragment로 이동
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            val homeFragment : HomeFragment = HomeFragment()
+            transaction.replace(R.id.fragementContainer, homeFragment).commit()
         }
     }
 
