@@ -56,6 +56,7 @@ class EditArticleFragment : Fragment() {
         // Spinner Adapter 등록
         val res : Resources = resources
         val categoryList = arrayListOf<String>(*res.getStringArray(R.array.food_category))
+        val categoryImageUrlList = arrayListOf<String>(*res.getStringArray(R.array.food_default_iamge_category))
         Log.d("categoryList", categoryList.toString())
         val categoryAdapter : ArrayAdapter<String> = ArrayAdapter<String>(requireActivity().baseContext, android.R.layout.simple_spinner_item, categoryList)
         categorySpinner.adapter = categoryAdapter
@@ -63,18 +64,18 @@ class EditArticleFragment : Fragment() {
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when (p2) {
-                    0 -> categoryValue = categoryList[0]
-                    1 -> categoryValue = categoryList[1]
-                    2 -> categoryValue = categoryList[2]
-                    3 -> categoryValue = categoryList[3]
-                    4 -> categoryValue = categoryList[4]
-                    5 -> categoryValue = categoryList[5]
-                    6 -> categoryValue = categoryList[6]
-                    7 -> categoryValue = categoryList[7]
-                    8 -> categoryValue = categoryList[8]
-                    9 -> categoryValue = categoryList[9]
-                    10 -> categoryValue = categoryList[10]
-                    11 -> categoryValue = categoryList[11]
+                    0 -> categoryValue = categoryImageUrlList[0]
+                    1 -> categoryValue = categoryImageUrlList[1]
+                    2 -> categoryValue = categoryImageUrlList[2]
+                    3 -> categoryValue = categoryImageUrlList[3]
+                    4 -> categoryValue = categoryImageUrlList[4]
+                    5 -> categoryValue = categoryImageUrlList[5]
+                    6 -> categoryValue = categoryImageUrlList[6]
+                    7 -> categoryValue = categoryImageUrlList[7]
+                    8 -> categoryValue = categoryImageUrlList[8]
+                    9 -> categoryValue = categoryImageUrlList[9]
+                    10 -> categoryValue = categoryImageUrlList[10]
+                    11 -> categoryValue = categoryImageUrlList[11]
                 }
             }
 
@@ -91,7 +92,7 @@ class EditArticleFragment : Fragment() {
                 return@setOnClickListener
             }
 
-            if ( TextUtils.isEmpty(categoryValue.toString().trim()) ){
+            if ( categoryValue == null ){
                 Toast.makeText(context, "음식 카테고리를 선택해주세요!", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -102,7 +103,7 @@ class EditArticleFragment : Fragment() {
 
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
             val members : ArrayList<String> = arrayListOf(userInfo.email)
-            val imageUrls : ArrayList<String> = arrayListOf("defaultImages/Chicken.jpeg")
+            val imageUrls : ArrayList<String> = arrayListOf(categoryValue.toString())
             var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)
             article.set_title(title.text.toString())
             article.set_content(content.text.toString())

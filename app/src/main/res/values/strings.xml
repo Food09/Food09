@@ -25,4 +25,19 @@
         <item>야식</item>
         <item>도시락</item>
     </string-array>
+
+    <string-array name="food_default_iamge_category">
+        <item>defaultImages/Korea.jpeg</item>
+        <item>defaultImages/Bunsik.png</item>
+        <item>defaultImages/Caffe.jpeg</item>
+        <item>defaultImages/Chicken.jpeg</item>
+        <item>defaultImages/Pizza.jpeg</item>
+        <item>defaultImages/Fastfood.jpeg</item>
+        <item>defaultImages/Japen.jpeg</item>
+        <item>defaultImages/China.jpeg</item>
+        <item>defaultImages/Asia.jpeg</item>
+        <item>defaultImages/Jokbal.jpeg</item>
+        <item>defaultImages/Yasik.jpg</item>
+        <item>defaultImages/Dosirak.jpg</item>
+    </string-array>
 </resources>
