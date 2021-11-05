@@ -26,11 +26,12 @@
 
         android:backgroundTint="#FFC107"
         android:src="@drawable/ic_add"
+        app:fabCustomSize="42dp"
         android:layout_gravity="bottom|right"
+        android:layout_margin="20dp"
 
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        app:borderWidth="0dp" />
+        app:borderWidth="0dp"
+        tools:ignore="MissingConstraints" />
 
 
 
