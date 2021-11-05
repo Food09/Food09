@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.FragmentTransaction
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.SimpleDateFormat
@@ -87,6 +88,15 @@ class ArticleFragment : Fragment() {
 
             // ToDo: Article 디비의 인원수 변경
 
+
+            // 참여하기 버튼 누르면 채팅 창으로 이동
+            // ChatListFragment로 이동
+            val bundle : Bundle = Bundle()
+            bundle.putSerializable("userInfo", userInfo)
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            val chatListFragment : ChatListFragment = ChatListFragment()
+            chatListFragment.setArguments(bundle)
+            transaction.replace(R.id.fragementContainer, chatListFragment).commit()
         }
 
         return rootView
