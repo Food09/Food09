@@ -12,9 +12,9 @@
 ### 스크린샷
 
 <div>
-<img src="./pictures/Food09_picture1.png" height="500">
-<img src="./pictures/Food09_picture3.png" height="500">
-<img src="./pictures/Food09_picture2.png" height="500">
+<img src="./pictures/Food09_picture1.png" height="450">
+<img src="./pictures/Food09_picture3.png" height="450">
+<img src="./pictures/Food09_picture2.png" height="450">
 </div>
   
 ### 데모 영상
