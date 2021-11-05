@@ -11,8 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
@@ -156,12 +155,29 @@ class ArticleFragment : Fragment() {
             Log.d("ArticleFragment", "deleteButton Clicked!")
 
             // ToDo: Article DB에서 삭제
-
+            val articleRef : DatabaseReference = rootDB.getReference("Article")
+            articleRef.child(article.articleKey).removeValue()
 
             // ToDo: Chat DB도 삭제
-            
-            // ToDo: ChatUser DB에서 사용자들 모두 삭제
+            val chatRef : DatabaseReference = rootDB.getReference("Chat")
+            chatRef.child(article.articleKey).removeValue()
 
+            // ToDo: ChatUser DB에서 사용자들 모두 삭제
+            // 리스너 등록
+            val chatUserRef : DatabaseReference = rootDB.getReference("ChatUser")
+            chatUserRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+
+                    for ( user in snapshot.children ){
+                        if (user.value.toString() == article.articleKey){
+                            chatUserRef.child(user.key.toString()).removeValue()
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("ArticleFragment", "Failed to read ChatUser")
+                }
+            })
 
             parentFragmentManager.popBackStack()
         }
