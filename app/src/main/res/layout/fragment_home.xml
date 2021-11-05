@@ -7,17 +7,17 @@
     android:background="@color/colorWhite"
     tools:context=".HomeFragment">
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        tools:listitem="@layout/item_article"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
-
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/item_article" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addFloatingButton"
@@ -27,9 +27,9 @@
         android:backgroundTint="#FFC107"
         android:src="@drawable/ic_add"
         android:layout_gravity="bottom|right"
-        android:layout_marginBottom="80dp"
-        android:layout_marginRight="20dp"
 
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
         app:borderWidth="0dp" />
 
 
