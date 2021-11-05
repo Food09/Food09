@@ -40,7 +40,7 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
             val tmpImageRef : StorageReference = imageRef.child(data.imageUrls[0])
             tmpImageRef.downloadUrl.addOnCompleteListener {
                 if (it.isSuccessful) {
-                    Glide.with(imgThumbnail.context).load(it.result).into(imgThumbnail)
+                    Glide.with(imgThumbnail.context).load(it.result).placeholder(R.drawable.ic_baseline_fastfood_24).into(imgThumbnail)
                 }
             }
 

@@ -52,7 +52,7 @@ class EditArticleFragment : Fragment() {
 
         // ToDo: 최대 인원 수 지정을 위한 Spinner
 
-        // ToDo: 카테고리 지정을 위한 Spinner -> 추가적인 사진 업로드가 없을시 기본 사진 경로 지정해줘야함
+        // 카테고리 지정을 위한 Spinner -> 추가적인 사진 업로드가 없을시 기본 사진 경로 지정해줘야함
         // Spinner Adapter 등록
         val res : Resources = resources
         val categoryList = arrayListOf<String>(*res.getStringArray(R.array.food_category))
@@ -97,11 +97,12 @@ class EditArticleFragment : Fragment() {
                 return@setOnClickListener
             }
 
+            // ArticleModel 생성 후 HomeFragment로 전달
             Log.d("EditArticleFragment", "Submit Clicked!")
             val now = System.currentTimeMillis()
             val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
-
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
+
             val members : ArrayList<String> = arrayListOf(userInfo.email)
             val imageUrls : ArrayList<String> = arrayListOf(categoryValue.toString())
             var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)
