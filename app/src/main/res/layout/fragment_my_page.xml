@@ -3,131 +3,184 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
     tools:context=".MyPageFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <RelativeLayout
-            android:id="@+id/userInfo_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/round_border">
-
-            <ImageView
-                android:id="@+id/my_page_userImage"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="5dp"
-                android:padding="10dp"
-                android:src="@drawable/ic_baseline_person_24" />
-
-            <TextView
-                android:id="@+id/my_page_userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@+id/my_page_userImage"
-                android:text="userName"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_page_userName"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/my_page_userImage"
-                android:text="context"
-                android:textSize="12dp" />
-
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/my_page_userEnterDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_below="@+id/userInfo_box"
-
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@+id/dummy_text_1"
-
-
-            android:text="2021-11-04"
-            android:textSize="10dp" />
-
-        <TextView
-            android:id="@+id/dummy_text_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/userInfo_box"
-            android:layout_alignRight="@+id/userInfo_box"
-
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="5dp"
-
-            android:textSize="10dp"
-            android:text="가입" />
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/dummy_text_1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/round_border">
+            android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/my_page_title_1"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/userInfo_box"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:text="이용 안내"
-                android:textSize="16dp"
-                android:textColor="#272727"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_page_title_1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-
-                android:text="앱 버전" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/my_page_title_1"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="15dp"
-                android:text="1.0.0(20211105100)" />
+                android:background="@drawable/round_border">
+
+                <ImageView
+                    android:id="@+id/my_page_userImage"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_baseline_person_24" />
+
+                <TextView
+                    android:id="@+id/my_page_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/my_page_userImage"
+                    android:text="userName"
+                    android:textSize="17dp"
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/my_page_userEnterDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_userName"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_toRightOf="@+id/my_page_userImage"
+                    android:text="2021-11-05"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_userName"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/my_page_userEnterDate"
+                    android:text="가입"
+                    android:textSize="12dp"/>
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/userContentEdit_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userInfo_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_border">
+
+                <TextView
+                    android:id="@+id/my_page_userContentEdit_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="자기 소개"
+                    android:textColor="#272727"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/dummy_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_userContentEdit_title"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+
+                    android:text="자기 소개 수정을 하는 공간입니다" />
+
+                <EditText
+                    android:id="@+id/my_page_userContentEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@+id/dummy_1"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp" />
+
+                <Button
+                    android:id="@+id/my_page_userContentEdit_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_below="@+id/my_page_userContentEdit"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/circle_border"
+                    android:text="수정하기"
+                    android:textColor="@color/colorWhite" />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userContentEdit_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_border">
+
+                <TextView
+                    android:id="@+id/my_page_title_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="이용 안내"
+                    android:textColor="#272727"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_title_1"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+
+                    android:text="앱 버전" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_title_1"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="1.0.0(20211105100)" />
+
+            </RelativeLayout>
+
+
 
         </RelativeLayout>
-
-
-
-    </RelativeLayout>
+    </ScrollView>
 
 
 

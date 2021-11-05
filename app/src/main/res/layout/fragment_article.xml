@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="80dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ArticleFragment"
     android:background="@color/colorWhite"
     android:clickable="true">
+
 
     <RelativeLayout
         android:id="@+id/top_relativeLayout"
@@ -18,8 +20,10 @@
         <ImageView
             android:id="@+id/article_image"
             android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
 
-            android:layout_height="250dp"
             android:background="@drawable/ic_baseline_fastfood_24" />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -116,11 +120,11 @@
             android:id="@+id/buttonEnter_article"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_below="@+id/contentTextView_article"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/half_circle_border"
-            android:paddingRight="10dp"
+            android:layout_below="@+id/userNumberTextView_article"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/circle_border"
+
 
             android:text="참여하기"
             android:textColor="@color/colorWhite"
@@ -131,12 +135,14 @@
             android:id="@+id/second"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_below="@+id/buttonEnter_article"
+            android:layout_below="@+id/contentTextView_article"
+            android:layout_alignTop="@+id/buttonEnter_article"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
+
             android:background="@drawable/half_circle_border"
             android:paddingRight="30dp"
             android:text="삭제"
+            android:layout_marginRight="-20dp"
             android:textColor="@color/colorWhite"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -150,42 +156,14 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/half_circle_border"
             android:paddingRight="30dp"
+            android:layout_marginRight="-20dp"
             android:text="수정"
-            android:textColor="@color/colorWhite"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/fourth"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_below="@+id/third"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:paddingRight="20dp"
-            android:background="@drawable/half_circle_border"
-            android:text="이미지"
-            android:textColor="@color/colorWhite"
-            android:textSize="16dp"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/fifth"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_below="@+id/fourth"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/half_circle_border"
-            android:text="남는 버튼"
             android:textColor="@color/colorWhite"
             android:textSize="16dp"
             android:textStyle="bold" />
 
 
     </RelativeLayout>
-
-
 
 
 
