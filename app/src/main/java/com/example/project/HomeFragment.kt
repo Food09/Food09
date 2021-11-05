@@ -13,6 +13,9 @@ import com.example.project.databinding.FragmentHomeBinding
 import com.google.android.gms.common.config.GservicesValue.value
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class HomeFragment : Fragment() {
@@ -120,7 +123,9 @@ class HomeFragment : Fragment() {
             // Chat에 채팅방 생성
             // 게시글에 대한 채팅 방 최초 생성
             val chatKey = chatRef.push().key.toString()
-            val chat : ChatModel = ChatModel(chatKey, "알림", "\"" + article.title + "\" 방입니다.", "")
+            val now = System.currentTimeMillis()
+            val dateTime : String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
+            val chat : ChatModel = ChatModel(chatKey, "알림", "\"" + article.title + "\" 방입니다.", dateTime)
             val chatValues = chat.toMap()
             val chatUpdates = hashMapOf<String, Any>(
                 "/${articleKey}/${chatKey}" to chatValues

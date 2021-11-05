@@ -154,6 +154,8 @@ class ArticleFragment : Fragment() {
 
         deleteButton.setOnClickListener {
             Log.d("ArticleFragment", "deleteButton Clicked!")
+
+            parentFragmentManager.popBackStack()
         }
 
         return rootView
