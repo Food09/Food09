@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val userQuery : Query = userRef.orderByChild("email")
         Log.d( "MainActivity", userQuery.toString())
 
-        userQuery.addListenerForSingleValueEvent(object: ValueEventListener {
+        userQuery.addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (user in snapshot.children){
                     val userEmail : String = user.child("email").value.toString()
