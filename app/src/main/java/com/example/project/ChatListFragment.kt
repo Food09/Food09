@@ -67,6 +67,8 @@ class ChatListFragment : Fragment() {
         readChat()
 
 
+
+
         // 메시지 발송 버튼
         var btnSend = rootView.findViewById(R.id.btn_send!!) as Button
         btnSend.isEnabled = true
@@ -176,7 +178,15 @@ class ChatListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 채팅방 나가기 버튼 이벤트 리스너 설정
+        chat_exit_btn.setOnClickListener {
+            Log.d("ChatListFragment", "Exit Button Clicked!")
+            // ToDo: ChatUser DB 상에서 현재 유저 데이터 삭제
 
+
+            // ToDo: Chat에서 나갔습니다 메시지 남기기
+
+        }
     }
 
 }
