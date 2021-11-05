@@ -35,7 +35,9 @@ class ArticleAdapter(private val DataList: ArrayList<ArticleModel>, val itemClic
             val numStr = curNum.toString() + " / " + maxNum.toString()
             txtNum.text = numStr
 
-            val tmpImageRef : StorageReference = imageRef.child("defaultImages/Chicken.jpeg")
+            Log.d("ArticleAdapter imageUrl test", data.imageUrls.toString())
+
+            val tmpImageRef : StorageReference = imageRef.child(data.imageUrls[0])
             tmpImageRef.downloadUrl.addOnCompleteListener {
                 if (it.isSuccessful) {
                     Glide.with(imgThumbnail.context).load(it.result).into(imgThumbnail)

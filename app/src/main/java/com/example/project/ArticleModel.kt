@@ -90,7 +90,8 @@ class ArticleModel (
             "maxNum" to maxNum,
             "curNum" to curNum,
             "dateTime" to dateTime,
-            "members" to members
+            "members" to members,
+            "imageUrls" to imageUrls
         )
     }
 }
