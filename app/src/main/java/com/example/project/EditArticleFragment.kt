@@ -11,6 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.annotation.RequiresApi
+import com.bumptech.glide.Glide
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.fragment_edit_article.*
 import java.text.DateFormat
 import java.text.SimpleDateFormat
@@ -21,6 +26,8 @@ import kotlin.collections.ArrayList
 
 class EditArticleFragment : Fragment() {
     private lateinit var userInfo : UserModel
+    val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
+    val imageRef : StorageReference = storage.getReference("Images")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
@@ -37,6 +44,7 @@ class EditArticleFragment : Fragment() {
         val content : EditText = rootView!!.findViewById(R.id.contentTextView_edit)
         val userNumber : TextView = rootView!!.findViewById(R.id.userNumberTextView_edit)
         val categorySpinner : Spinner = rootView!!.findViewById(R.id.Category_spinner)
+        val categoryImageView : ImageView = rootView!!.findViewById(R.id.edit_article_imageView)
 
         var categoryValue : String ?= null
 
@@ -76,6 +84,12 @@ class EditArticleFragment : Fragment() {
                     9 -> categoryValue = categoryImageUrlList[9]
                     10 -> categoryValue = categoryImageUrlList[10]
                     11 -> categoryValue = categoryImageUrlList[11]
+                }
+                val tmpImageRef : StorageReference = imageRef.child(categoryValue.toString())
+                tmpImageRef.downloadUrl.addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        Glide.with(categoryImageView.context).load(it.result).centerCrop().placeholder(R.drawable.ic_baseline_fastfood_24).into(categoryImageView)
+                    }
                 }
             }
 
