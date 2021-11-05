@@ -50,6 +50,7 @@ class MyPageFragment : Fragment() {
         my_page_userName.text = userInfo.nickName
         my_page_userContentEdit.setText(userInfo.profile)
         my_page_userEnterDate.text = userInfo.dateTime
+        my_page_email.text = userInfo.email
         my_page_userContentEdit_btn.setOnClickListener {
             Log.d("MyPageFragment", "수정하기 Clicked!")
             my_page_userContentEdit.isCursorVisible = false
@@ -70,7 +71,6 @@ class MyPageFragment : Fragment() {
                             )
                             userRef.updateChildren(userUpdates)
                         }
-
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
@@ -85,7 +85,5 @@ class MyPageFragment : Fragment() {
 //            }
 
         }
-
-
     }
 }

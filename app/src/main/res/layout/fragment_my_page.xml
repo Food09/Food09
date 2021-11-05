@@ -72,12 +72,58 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/userInfo_box2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/userInfo_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/round_border">
+
+                <TextView
+                    android:id="@+id/my_page_title_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="계정 정보"
+                    android:textColor="#272727"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_title_2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+
+                    android:text="Email" />
+
+                <TextView
+                    android:id="@+id/my_page_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_page_title_2"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="user@email.com" />
+
+            </RelativeLayout>
+
 
             <RelativeLayout
                 android:id="@+id/userContentEdit_box"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/userInfo_box"
+                android:layout_below="@id/userInfo_box2"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="10dp"
@@ -110,7 +156,7 @@
                 <EditText
                     android:id="@+id/my_page_userContentEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="170dp"
                     android:layout_below="@+id/dummy_1"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
