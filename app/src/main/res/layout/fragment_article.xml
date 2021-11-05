@@ -140,9 +140,9 @@
 
             android:layout_alignParentRight="true"
 
+            android:layout_marginTop="20dp"
             android:layout_marginRight="-20dp"
             android:background="@drawable/half_circle_border"
-            android:layout_marginTop="20dp"
             android:paddingRight="30dp"
             android:text="삭제"
             android:textColor="@color/colorWhite"

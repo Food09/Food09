@@ -21,11 +21,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ArticleFragment : Fragment() {
-    val rootDB : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
-    lateinit var article : ArticleModel
-    lateinit var userInfo : UserModel
-    val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
-    val imageRef : StorageReference = storage.getReference("Images")
+    private val rootDB : FirebaseDatabase = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/")
+    private lateinit var article : ArticleModel
+    private lateinit var userInfo : UserModel
+    private val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
+    private val imageRef : StorageReference = storage.getReference("Images")
+    private var isAuthor : Boolean = false
 
 //    private lateinit var callback: OnBackPressedCallback
 //
@@ -59,6 +60,11 @@ class ArticleFragment : Fragment() {
         val userNumber : TextView = rootView!!.findViewById(R.id.userNumberTextView_article)
         val enterButton : Button = rootView!!.findViewById(R.id.buttonEnter_article)
         val articleImage : ImageView = rootView!!.findViewById(R.id.article_image)
+        val editButton : Button = rootView!!.findViewById(R.id.third)
+        val deleteButton : Button = rootView!!.findViewById(R.id.second)
+
+        editButton.isEnabled = false
+        deleteButton.isEnabled = false
 
         if (getArguments() != null){
 //            var data : String? = requireArguments().getString("test")
@@ -73,11 +79,19 @@ class ArticleFragment : Fragment() {
             content.text = article.get_content()
             userNumber.text = article.get_curNum().toString() + " / " + article.get_maxNum().toString()
 
+            // 음식 이미지 보이기
             val tmpImageRef : StorageReference = imageRef.child(article.imageUrls[0])
             tmpImageRef.downloadUrl.addOnCompleteListener {
                 if (it.isSuccessful) {
                     Glide.with(articleImage.context).load(it.result).centerCrop().placeholder(R.drawable.ic_baseline_fastfood_24).into(articleImage)
                 }
+            }
+
+            // ToDo: 버튼 작성자에게만 보이게하고 활성화하기
+            if (userInfo.nickName == article.userID){
+                isAuthor = true
+                editButton.isEnabled = true
+                deleteButton.isEnabled = true
             }
         }
 
@@ -102,7 +116,7 @@ class ArticleFragment : Fragment() {
             // Article 디비의 멤버에 추가함? -> 굳이 안해도 됨
 
 
-            // ToDo: Article 디비의 인원수 변경
+            // Article 디비의 인원수 변경 -> 일단 스킵
 
 
             // 참여하기 버튼 누르면 채팅 창으로 이동
@@ -115,8 +129,14 @@ class ArticleFragment : Fragment() {
             transaction.replace(R.id.fragementContainer, chatListFragment).commit()
         }
 
+        editButton.setOnClickListener {
+            Log.d("ArticleFragment", "editButton Clicked!")
+        }
+
+        deleteButton.setOnClickListener {
+            Log.d("ArticleFragment", "deleteButton Clicked!")
+        }
+
         return rootView
     }
-
-
 }
