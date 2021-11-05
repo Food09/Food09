@@ -13,22 +13,34 @@
         android:layout_height="match_parent">
 
 
+        <ImageView
+            android:id="@+id/edit_article_imageView"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:layout_marginTop="10dp"
+
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_baseline_fastfood_24" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/UserProfileImageView_edit"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:src="@drawable/ic_baseline_person_24"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            app:civ_border_width="2dp"
-            app:civ_border_color="#E6E6E6" />
+            android:layout_below="@+id/edit_article_imageView"
+
+            android:src="@drawable/ic_baseline_person_24"
+            app:civ_border_color="#E6E6E6"
+            app:civ_border_width="2dp" />
 
         <TextView
             android:id="@+id/userIDTextView_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_below="@+id/edit_article_imageView"
             android:layout_toRightOf="@+id/UserProfileImageView_edit"
             android:text="Charlie"
             android:textSize="20dp"
@@ -49,12 +61,31 @@
             android:textColor="#000000"
             android:textSize="12dp" />
 
+        <TextView
+            android:id="@+id/dummy_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView_edit"
+            android:layout_marginLeft="27dp"
+            android:layout_marginTop="3dp"
+            android:text="카테고리 : " />
+
+        <Spinner
+            android:id="@+id/Category_spinner"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTextView_edit"
+
+            android:layout_toRightOf="@+id/dummy_2" />
+
+
         <EditText
             android:id="@+id/titleTextView_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/userProfileTextView_edit"
+            android:layout_marginTop="10dp"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="120dp"
             android:layout_marginEnd="25dp"
             android:hint="제목"
             android:inputType="text"
@@ -68,7 +99,7 @@
             android:layout_below="@+id/titleTextView_edit"
             android:layout_gravity="top"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="25dp"
             android:hint="내용"
             android:inputType="textMultiLine"
@@ -81,15 +112,15 @@
             android:id="@+id/recruitTextView_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
             android:layout_below="@+id/contentTextView_edit"
-            android:layout_marginTop="7dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:text="모집 현황 : "
             android:textSize="13dp"
             android:textStyle="bold" />
 
-    <!--    ToDo: spinner로 모집 수 지정하기  -->
+        <!--    ToDo: spinner로 모집 수 지정하기  -->
         <TextView
             android:id="@+id/userNumberTextView_edit"
             android:layout_width="wrap_content"
@@ -97,7 +128,7 @@
 
             android:layout_below="@+id/contentTextView_edit"
 
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_toRightOf="@+id/recruitTextView_edit"
             android:text="1 / 4 "
@@ -106,22 +137,19 @@
 
         <Button
             android:id="@+id/buttonSubmit_edit"
-            android:layout_width="61dp"
-            android:layout_height="32dp"
+            android:layout_width="75dp"
+            android:layout_height="38dp"
             android:layout_below="@+id/contentTextView_edit"
             android:layout_alignParentRight="true"
             android:layout_marginRight="25dp"
-            android:text="작성하기"
-            android:textSize="10dp"
             android:background="@drawable/circle_border"
+            android:text="작성하기"
+            android:textSize="12dp"
             android:textStyle="bold" />
 
-        <Spinner
-            android:id="@+id/Category_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/contentTextView_edit"
-            android:layout_marginTop="40dp" />
+
+
+
     </RelativeLayout>
 
 </FrameLayout>

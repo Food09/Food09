@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.project.databinding.FragmentHomeBinding
 import com.google.android.gms.common.config.GservicesValue.value
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 
 
@@ -279,6 +280,8 @@ class HomeFragment : Fragment() {
                 bundle.putSerializable("userInfo", userInfo)
                 editArticleFragment.setArguments(bundle)
                 transaction.add(R.id.fragementContainer, editArticleFragment).addToBackStack(null).commit()
+
+                Snackbar.make(view, "방 생성하기", Snackbar.LENGTH_SHORT).setAction("action", null).show()
             }
         }
 
