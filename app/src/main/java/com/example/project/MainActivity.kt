@@ -28,10 +28,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity email : ", email.toString())
 
         val userRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("User")
-        val userQuery : Query = userRef.orderByChild("email")
+        val userQuery : Query = userRef.orderByChild("email").equalTo(email)
         Log.d( "MainActivity", userQuery.toString())
 
-        userQuery.addValueEventListener(object: ValueEventListener {
+        userQuery.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (user in snapshot.children){
                     val userEmail : String = user.child("email").value.toString()
