@@ -52,7 +52,7 @@ class EditArticleFragment : Fragment() {
 
         // ToDo: 최대 인원 수 지정을 위한 Spinner
 
-        // ToDo: 카테고리 지정을 위한 Spinner -> 추가적인 사진 업로드가 없을시 기본 사진 경로 지정해줘야함
+        // 카테고리 지정을 위한 Spinner -> 추가적인 사진 업로드가 없을시 기본 사진 경로 지정해줘야함
         // Spinner Adapter 등록
         val res : Resources = resources
         val categoryList = arrayListOf<String>(*res.getStringArray(R.array.food_category))
