@@ -92,10 +92,19 @@ class HomeFragment : Fragment() {
             val article : ArticleModel = bundle.getSerializable("articleInfo") as ArticleModel
             Log.d("HomeFragment", "Receive data from EditArticleFragment : " + article.get_userID())
 
-            // EditArticle로부터 받아온 article을 Firebase에 추가하기
-            val uploadRef : DatabaseReference = articleRef.push()
-            val articleKey : String? = uploadRef.key
+            // EditArticle로부터 받아온 article을 Firebase에 추가하기 & 있던 article 수정하는 거면 해당 articleKey로 업데이트하기
+            var uploadRef : DatabaseReference ?= null
+            var articleKey : String? = null
+            if (article.articleKey != "None"){
+                articleKey = article.articleKey
+            }
+            else {
+                uploadRef = articleRef.push()
+                articleKey = uploadRef.key
+            }
+
             if (articleKey == null) {
+                Log.w("HomeFragment", "article Key push() error")
                 return@setFragmentResultListener
             }
             article.set_articleKey(articleKey) // articleKey 세팅

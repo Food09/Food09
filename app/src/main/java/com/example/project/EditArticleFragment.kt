@@ -25,7 +25,6 @@ import kotlin.collections.ArrayList
 
 
 class EditArticleFragment : Fragment() {
-    private lateinit var userInfo : UserModel
     val storage : FirebaseStorage = Firebase.storage("gs://food09-581c6.appspot.com/")
     val imageRef : StorageReference = storage.getReference("Images")
 
@@ -47,45 +46,86 @@ class EditArticleFragment : Fragment() {
         val categoryImageView : ImageView = rootView!!.findViewById(R.id.edit_article_imageView)
 
         var categoryValue : String ?= null
+        var categoryImageUrl : String ?= null
+        var articleKey : String = "None"
+        var userInfo : UserModel
+
 
         // HomeFragment로부터 사용자 정보 받아오기
-        if (getArguments() == null){
-            Log.d("EditArticleFragment getArguments : ", "getArguments Error!")
+        if (requireArguments().containsKey("userInfo")){
+            userInfo = requireArguments()!!.getSerializable("userInfo") as UserModel
+            Log.d("HomeFragment getArguments : ", userInfo.nickName)
+
+            userID.text = userInfo.nickName
+            userProfile.text = userInfo.profile
+        } else {
+            Log.w("EditArticleFragment getArguments : ", "getArguments Error!")
         }
-        userInfo = requireArguments()!!.getSerializable("userInfo") as UserModel
-        Log.d("HomeFragment getArguments : ", userInfo.nickName)
 
-        userID.text = userInfo.nickName
-        userProfile.text = userInfo.profile
-
-        // ToDo: 최대 인원 수 지정을 위한 Spinner
+        // 최대 인원 수 지정을 위한 Spinner -> 보류
 
         // 카테고리 지정을 위한 Spinner -> 추가적인 사진 업로드가 없을시 기본 사진 경로 지정해줘야함
         // Spinner Adapter 등록
         val res : Resources = resources
         val categoryList = arrayListOf<String>(*res.getStringArray(R.array.food_category))
         val categoryImageUrlList = arrayListOf<String>(*res.getStringArray(R.array.food_default_iamge_category))
-        Log.d("categoryList", categoryList.toString())
+//        Log.d("categoryList", categoryList.toString())
         val categoryAdapter : ArrayAdapter<String> = ArrayAdapter<String>(requireActivity().baseContext, android.R.layout.simple_spinner_item, categoryList)
         categorySpinner.adapter = categoryAdapter
         // Spinner Listenr 등록
         categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 when (p2) {
-                    0 -> categoryValue = categoryImageUrlList[0]
-                    1 -> categoryValue = categoryImageUrlList[1]
-                    2 -> categoryValue = categoryImageUrlList[2]
-                    3 -> categoryValue = categoryImageUrlList[3]
-                    4 -> categoryValue = categoryImageUrlList[4]
-                    5 -> categoryValue = categoryImageUrlList[5]
-                    6 -> categoryValue = categoryImageUrlList[6]
-                    7 -> categoryValue = categoryImageUrlList[7]
-                    8 -> categoryValue = categoryImageUrlList[8]
-                    9 -> categoryValue = categoryImageUrlList[9]
-                    10 -> categoryValue = categoryImageUrlList[10]
-                    11 -> categoryValue = categoryImageUrlList[11]
+                    0 -> {
+                        categoryValue = categoryList[0]
+                        categoryImageUrl = categoryImageUrlList[0]
+                    }
+                    1 -> {
+                        categoryValue = categoryList[1]
+                        categoryImageUrl = categoryImageUrlList[1]
+                    }
+                    2 -> {
+                        categoryValue = categoryList[2]
+                        categoryImageUrl = categoryImageUrlList[2]
+                    }
+                    3 -> {
+                        categoryValue = categoryList[3]
+                        categoryImageUrl = categoryImageUrlList[3]
+                    }
+                    4 -> {
+                        categoryValue = categoryList[4]
+                        categoryImageUrl = categoryImageUrlList[4]
+                    }
+                    5 -> {
+                        categoryValue = categoryList[5]
+                        categoryImageUrl = categoryImageUrlList[5]
+                    }
+                    6 -> {
+                        categoryValue = categoryList[6]
+                        categoryImageUrl = categoryImageUrlList[6]
+                    }
+                    7 -> {
+                        categoryValue = categoryList[7]
+                        categoryImageUrl = categoryImageUrlList[7]
+                    }
+                    8 -> {
+                        categoryValue = categoryList[8]
+                        categoryImageUrl = categoryImageUrlList[8]
+                    }
+                    9 -> {
+                        categoryValue = categoryList[9]
+                        categoryImageUrl = categoryImageUrlList[9]
+                    }
+                    10 -> {
+                        categoryValue = categoryList[10]
+                        categoryImageUrl = categoryImageUrlList[10]
+                    }
+                    11 -> {
+                        categoryValue = categoryList[11]
+                        categoryImageUrl = categoryImageUrlList[11]
+                    }
                 }
-                val tmpImageRef : StorageReference = imageRef.child(categoryValue.toString())
+                val tmpImageRef : StorageReference = imageRef.child(categoryImageUrl.toString())
                 tmpImageRef.downloadUrl.addOnCompleteListener {
                     if (it.isSuccessful) {
                         Glide.with(categoryImageView.context).load(it.result).centerCrop().placeholder(R.drawable.ic_baseline_fastfood_24).into(categoryImageView)
@@ -95,10 +135,19 @@ class EditArticleFragment : Fragment() {
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 categoryValue = null
+                categoryImageUrl = null
             }
         }
 
-
+        if (requireArguments().containsKey("articleInfo")){
+            Log.d("EditArticleFragment", "AritlceFragment에서 수정요청")
+            val tmpArticle : ArticleModel = requireArguments()!!.getSerializable("articleInfo") as ArticleModel
+            title.setText(tmpArticle.title)
+            content.setText(tmpArticle.content)
+            categoryValue = tmpArticle.category
+            categoryImageUrl = tmpArticle.imageUrls[0]
+            articleKey = tmpArticle.articleKey
+        }
 
         btnSubmit.setOnClickListener { view->
             if ( TextUtils.isEmpty(title.text.toString().trim()) || TextUtils.isEmpty(content.text.toString().trim()) ){
@@ -117,11 +166,13 @@ class EditArticleFragment : Fragment() {
             val dateTime : String? = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
             Log.d("EditArticleFragment", "LocalDateTime : " + dateTime)
 
-            val members : ArrayList<String> = arrayListOf(userInfo.email)
-            val imageUrls : ArrayList<String> = arrayListOf(categoryValue.toString())
-            var article : ArticleModel = ArticleModel("None", userInfo.nickName, userInfo.profile, "fastfood", "title", "content", 5, 1, dateTime, members, imageUrls)
-            article.set_title(title.text.toString())
-            article.set_content(content.text.toString())
+            // ToDo: members
+            val members : ArrayList<String> = arrayListOf(userID.text.toString())
+            val imageUrls : ArrayList<String> = arrayListOf(categoryImageUrl.toString())
+            // ToDo: articleKey, category
+            var article : ArticleModel = ArticleModel(articleKey, userID.text.toString(), userProfile.text.toString(), categoryValue.toString(), title.text.toString(), content.text.toString(), 5, 1, dateTime, members, imageUrls)
+//            article.set_title(title.text.toString())
+//            article.set_content(content.text.toString())
             val bundle: Bundle = Bundle()
             bundle.putSerializable("articleInfo", article)
             parentFragmentManager.setFragmentResult("requestKey", bundle)

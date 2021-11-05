@@ -135,8 +135,21 @@ class ArticleFragment : Fragment() {
             transaction.replace(R.id.fragementContainer, chatListFragment).commit()
         }
 
+
+        // 수정 버튼
         editButton.setOnClickListener {
             Log.d("ArticleFragment", "editButton Clicked!")
+
+            val bundle : Bundle = Bundle()
+            bundle.putSerializable("userInfo", userInfo)
+            bundle.putSerializable("articleInfo", article)
+            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+            val homeFragment : HomeFragment = HomeFragment()
+            val editArticleFragment : EditArticleFragment = EditArticleFragment()
+            editArticleFragment.setArguments(bundle)
+            homeFragment.setArguments(bundle)
+            parentFragmentManager.popBackStack()
+            transaction.replace(R.id.fragementContainer, homeFragment).add(R.id.fragementContainer, editArticleFragment).addToBackStack(null).commit()
         }
 
         deleteButton.setOnClickListener {
