@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -102,36 +103,57 @@ class ArticleFragment : Fragment() {
 
         enterButton.setOnClickListener {
             Log.d("ArticleFragment", "enterButton Clicked!")
-            // (현재사용자, articleKey) 데이터를 ChatUser Firebase에 추가하기
+            // 현재 사용자가 이미 해당 채팅방에 있는지 확인하기
             val chatUserRef : DatabaseReference = rootDB.getReference("ChatUser")
-            chatUserRef.child(userInfo.nickName).setValue(article.articleKey)
 
-            // 채팅방 접속 알림 메시지
-            val chatRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chat")
-            val chatKey = chatRef.push().key.toString()
-            val now = System.currentTimeMillis()
-            val dateTime : String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
-            val chat : ChatModel = ChatModel(chatKey, "알림", userInfo.nickName + "님이 입장했습니다.", dateTime)
-            val chatValues = chat.toMap()
-            val chatUpdates = hashMapOf<String, Any>(
-                "/${article.articleKey}/${chatKey}" to chatValues
-            )
-            chatRef.updateChildren(chatUpdates)
+            chatUserRef.addListenerForSingleValueEvent(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for ( user in snapshot.children ){
+                        if (user.key.toString() == userInfo.nickName) {
+                            if (user.value.toString() == article.articleKey) {
+                                // 이미 해당 방에 있을 때
+                                Snackbar.make(view!!, "해당 채팅방에 이미 입장해있습니다.", Snackbar.LENGTH_SHORT).setAction("action", null).show()
+                                return
+                            } else {
+                                // 다른 방에 있을 때
+                                Snackbar.make(view!!, "이미 다른 채팅방에 입장해있습니다.", Snackbar.LENGTH_SHORT).setAction("action", null).show()
+                                return
+                            }
+                        }
+                    }
+                    // 참여하고 있는 채팅방이 없을 때
+                    // (현재사용자, articleKey) 데이터를 ChatUser Firebase에 추가하기
+                    chatUserRef.child(userInfo.nickName).setValue(article.articleKey)
 
-            // Article 디비의 멤버에 추가함? -> 굳이 안해도 됨
+                    // 채팅방 접속 알림 메시지
+                    val chatRef : DatabaseReference = FirebaseDatabase.getInstance("https://food09-581c6-default-rtdb.asia-southeast1.firebasedatabase.app/").getReference("Chat")
+                    val chatKey = chatRef.push().key.toString()
+                    val now = System.currentTimeMillis()
+                    val dateTime : String = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.KOREAN).format(now)
+                    val chat : ChatModel = ChatModel(chatKey, "알림", userInfo.nickName + "님이 입장했습니다.", dateTime)
+                    val chatValues = chat.toMap()
+                    val chatUpdates = hashMapOf<String, Any>(
+                        "/${article.articleKey}/${chatKey}" to chatValues
+                    )
+                    chatRef.updateChildren(chatUpdates)
 
+                    // Article 디비의 멤버에 추가함? -> 굳이 안해도 됨
+                    // Article 디비의 인원수 변경 -> 일단 스킵
 
-            // Article 디비의 인원수 변경 -> 일단 스킵
+                    // 참여하기 버튼 누르면 채팅 창으로 이동
+                    // ChatListFragment로 이동
+                    val bundle : Bundle = Bundle()
+                    bundle.putSerializable("userInfo", userInfo)
+                    val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
+                    val chatListFragment : ChatListFragment = ChatListFragment()
+                    chatListFragment.setArguments(bundle)
+                    transaction.replace(R.id.fragementContainer, chatListFragment).commit()
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("ArticleFragment","Not yet implemented")
+                }
+            })
 
-
-            // 참여하기 버튼 누르면 채팅 창으로 이동
-            // ChatListFragment로 이동
-            val bundle : Bundle = Bundle()
-            bundle.putSerializable("userInfo", userInfo)
-            val transaction: FragmentTransaction = parentFragmentManager.beginTransaction()
-            val chatListFragment : ChatListFragment = ChatListFragment()
-            chatListFragment.setArguments(bundle)
-            transaction.replace(R.id.fragementContainer, chatListFragment).commit()
         }
 
 
@@ -154,15 +176,15 @@ class ArticleFragment : Fragment() {
         deleteButton.setOnClickListener {
             Log.d("ArticleFragment", "deleteButton Clicked!")
 
-            // ToDo: Article DB에서 삭제
+            // Article DB에서 삭제
             val articleRef : DatabaseReference = rootDB.getReference("Article")
             articleRef.child(article.articleKey).removeValue()
 
-            // ToDo: Chat DB도 삭제
+            // Chat DB도 삭제
             val chatRef : DatabaseReference = rootDB.getReference("Chat")
             chatRef.child(article.articleKey).removeValue()
 
-            // ToDo: ChatUser DB에서 사용자들 모두 삭제
+            // ChatUser DB에서 사용자들 모두 삭제
             // 리스너 등록
             val chatUserRef : DatabaseReference = rootDB.getReference("ChatUser")
             chatUserRef.addListenerForSingleValueEvent(object: ValueEventListener {
