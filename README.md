@@ -20,3 +20,7 @@
 ### 데모 영상
 
 [https://youtu.be/p3VK8lMnmGg](https://youtu.be/p3VK8lMnmGg)
+
+### Awards
+
+2021 스마트 APP 개발 공모전 최우수상
